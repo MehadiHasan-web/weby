@@ -11,6 +11,8 @@ class Batch extends Model
     protected $fillable = [
         'name',
         'institute_id',
-        'routine'
+        'routine',
+        'students',
+        'teachers'
     ];
 }

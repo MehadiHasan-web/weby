@@ -3,6 +3,7 @@
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @livewireScripts
 
 {{--  image  --}}
@@ -167,3 +168,5 @@
         })
     })
 </script>
+
+@stack('script')

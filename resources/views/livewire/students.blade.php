@@ -25,6 +25,8 @@
                         <td>{{ $item->created_at->diffForHumans() ?? '' }}</td>
                         <td>
                             <div class="d-flex justify-center">
+                                <a href="{{ route('student.profile', $item->id) }}" class="btn btn-info me-2 btn-sm">Profile
+                                    <i class="bi bi-person-lines-fill ms-2"></i></a>
                                 <form wire:submit.prevent="approved({{ $item->id }})">
                                     <button type="submit" class="btn btn-success me-2 btn-sm">
                                         <i class="bi bi-check2-circle"></i> Approved

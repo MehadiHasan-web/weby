@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('institute_id')->constrained('institutes')->onDelete('cascade');
             $table->string('name');
+            $table->text('students');
+            $table->text('teachers');
             $table->text('routine')->nullable();
             $table->timestamps();
         });

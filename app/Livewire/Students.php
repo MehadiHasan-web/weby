@@ -24,6 +24,7 @@ class Students extends Component
         }
     }
 
+
     public function render()
     {
         // dd($this->students);

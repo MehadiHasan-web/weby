@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BatchRequest;
 use App\Models\admin\Batch;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -72,7 +73,11 @@ class BatchController extends Controller
      */
     public function show(Batch $batch)
     {
-        return view('admin.partials.batch.show', compact('batch'));
+        // $students = User::withoutRole('moderator')->where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
+        $students = User::withoutRole('moderator')->whereNotNull('institute_id')->latest()->get();
+        $selectedIdsArray = json_decode($batch->students, true) ?: [];
+        // dd($students);
+        return view('admin.partials.batch.show', compact('batch','students','selectedIdsArray'));
     }
 
     /**
@@ -111,5 +116,20 @@ class BatchController extends Controller
         }
         $batch->delete();
         return response('Batch delete');
+    }
+
+    // add students
+    public function add_students(Request $request,Batch $batch){
+        $isn_id = session('institute_id');
+        if($batch->institute_id === $isn_id){
+            $students = json_encode($request->students);
+            $batch->update([
+                'students' => $students,
+            ]);
+            flash()->success('Students added successfully');
+            return redirect()->back();
+        }
+        flash()->error('Sorry your are not Institute');
+        return redirect()->back();
     }
 }

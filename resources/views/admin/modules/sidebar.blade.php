@@ -31,7 +31,7 @@
                     Batchs
                 </a>
                 <a class="nav-link" href="{{ route('teacher.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
                     Teacher
                 </a>
             </div>

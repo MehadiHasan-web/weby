@@ -28,8 +28,11 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/institute-pending/{id}', [InstituteController::class, 'pending'])->name('institute.pending');
     Route::resource('/institute', InstituteController::class);
     Route::get('/students', [ViewController::class, 'students'] )->name('students.index');
+    Route::get('/student-profile/{user}', [ViewController::class, 'student_profile'])->name('student.profile');
+    Route::post('/add-students/{batch}',[BatchController::class, 'add_students'] )->name('batch.add.student');
     Route::resource('/batch', BatchController::class);
     Route::resource('/teacher', TeacherController::class);
+
 
 
 });
