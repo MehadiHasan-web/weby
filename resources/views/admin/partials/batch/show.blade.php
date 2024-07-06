@@ -21,6 +21,27 @@
                 <a type="submit" class="btn btn-info btn-sm " href="{{ route('batch.edit', $batch->id) }}"><i
                         class="bi bi-pencil-square"></i></a>
             </div>
+
+            <div class="mt-2">
+                {{-- students  --}}
+                <h4 class="mt-4">Students</h4>
+                <div class="d-flex ps-3">
+                    @isset($students)
+                        @foreach ($students as $item)
+                            @if (in_array($item->id, $selectedIdsStudents))
+                                <div class="rounded-circle border border-primary d-flex justify-content-center align-items-center shadow bg-white"
+                                    style="width: 48px; height:48px; margin-left:-15px;">
+                                    <strong class="m-0">{{ Str::limit($item->name, 2) }}</strong>
+                                </div>
+                            @endif
+                        @endforeach
+                        <button class="btn btn-dark shadow ms-2 " data-bs-toggle="modal" data-bs-target="#allStudents">
+                            Show All
+                        </button>
+                    @endisset
+
+                </div>
+            </div>
         </div>
 
         {{-- add students  --}}
@@ -31,15 +52,17 @@
                 <select class="js-example-basic-multiple w-100 mb-4" name="students[]" multiple="multiple">
                     @isset($students)
                         @foreach ($students as $item)
-                            <option value="{{ $item->id }}" {{ in_array($item->id, $selectedIdsArray) ? 'selected' : '' }}>
-                                {{ $item->name ?? '' }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name ?? '' }} || {{ $item->id ?? '' }}</option>
                         @endforeach
                     @endisset
                 </select>
                 <h2>Add Teacher</h2>
                 <select class="js-example-basic-multiple w-100" name="teachers[]" multiple="multiple">
-                    <option value="AL">Alabama</option>
-                    <option value="WY">Wyoming</option>
+                    @isset($teachers)
+                        @foreach ($teachers as $item)
+                            <option value="{{ $item->id }}">{{ $item->name ?? '' }} || {{ $item->id ?? '' }}</option>
+                        @endforeach
+                    @endisset
                 </select>
                 <button class="btn btn-dark shadow mt-2">Save</button>
 
@@ -73,6 +96,48 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+        {{-- student modal  --}}
+        <div class="modal fade" id="allStudents" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Student List</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @isset($students)
+                                    @foreach ($students as $item)
+                                        @if (in_array($item->id, $selectedIdsStudents))
+                                            <tr>
+                                                <th scope="row">{{ $item->id ?? '' }}</th>
+                                                <td>{{ $item->name ?? '' }}</td>
+                                                <td>Remove</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                @endisset
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
     </div>

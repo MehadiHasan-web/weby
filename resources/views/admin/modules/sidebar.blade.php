@@ -34,6 +34,10 @@
                     <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
                     Teacher
                 </a>
+                <a class="nav-link" href="{{ route('exam.create') }}">
+                    <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
+                    Exams
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer">

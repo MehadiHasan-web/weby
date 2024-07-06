@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BatchRequest;
 use App\Models\admin\Batch;
+use App\Models\admin\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
+
 
 class BatchController extends Controller
 {
@@ -73,11 +75,13 @@ class BatchController extends Controller
      */
     public function show(Batch $batch)
     {
-        // $students = User::withoutRole('moderator')->where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
-        $students = User::withoutRole('moderator')->whereNotNull('institute_id')->latest()->get();
-        $selectedIdsArray = json_decode($batch->students, true) ?: [];
-        // dd($students);
-        return view('admin.partials.batch.show', compact('batch','students','selectedIdsArray'));
+        $students = User::where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
+        $teachers = Teacher::where('institute_id', session('institute_id'))->latest()->get();
+        // dd($teachers);
+
+        $selectedIdsStudents = json_decode($batch->students, true) ?: [];
+        // dd($selectedIdsStudents);
+        return view('admin.partials.batch.show', compact('batch','students','teachers','selectedIdsStudents', ));
     }
 
     /**
@@ -123,10 +127,12 @@ class BatchController extends Controller
         $isn_id = session('institute_id');
         if($batch->institute_id === $isn_id){
             $students = json_encode($request->students);
+            $teachers = json_encode($request->teachers);
             $batch->update([
                 'students' => $students,
+                'teachers' => $teachers,
             ]);
-            flash()->success('Students added successfully');
+            flash()->success('Successfully added');
             return redirect()->back();
         }
         flash()->error('Sorry your are not Institute');

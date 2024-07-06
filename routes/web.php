@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::post('/add-students/{batch}',[BatchController::class, 'add_students'] )->name('batch.add.student');
     Route::resource('/batch', BatchController::class);
     Route::resource('/teacher', TeacherController::class);
+    Route::resource('/exam', ExamController::class);
 
 
 
