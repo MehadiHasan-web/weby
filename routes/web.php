@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExamResultController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
@@ -34,6 +36,15 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::resource('/batch', BatchController::class);
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/exam', ExamController::class);
+    Route::get('/absent/{user}/{exam}', [ExamResultController::class, 'absent'])->name('result.absent');
+    Route::resource('/result', ExamResultController::class)->only('store','edit');
+
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
+    Route::get('/attendance/index/{batch}', [AttendanceController::class, 'create'])->name('attendance.index');
+    Route::get('/attendance/present/{userId}/{batchId}', [AttendanceController::class, 'present'])->name('attendance.present');
+    Route::get('/attendance/late_present/{userId}/{batchId}', [AttendanceController::class, 'late_present'])->name('attendance.late_present');
+    Route::get('/attendance/absent/{userId}/{batchId}', [AttendanceController::class, 'absent'])->name('attendance.absent');
+
 
 
 

@@ -49,7 +49,7 @@
             <form action="{{ route('batch.add.student', $batch->id) }}" method="POST">
                 @csrf
                 <h2>Add Student</h2>
-                <select class="js-example-basic-multiple w-100 mb-4" name="students[]" multiple="multiple">
+                <select class="js-example-basic-multiple w-100 mb-4" name="batche[]" multiple="multiple">
                     @isset($students)
                         @foreach ($students as $item)
                             <option value="{{ $item->id }}">{{ $item->name ?? '' }} || {{ $item->id ?? '' }}</option>

@@ -34,9 +34,13 @@
                     <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
                     Teacher
                 </a>
-                <a class="nav-link" href="{{ route('exam.create') }}">
+                <a class="nav-link" href="{{ route('exam.index') }}">
                     <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
                     Exams
+                </a>
+                <a class="nav-link" href="{{ route('attendance') }}">
+                    <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
+                    Attendance
                 </a>
             </div>
         </div>

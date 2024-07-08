@@ -3,12 +3,12 @@
     Exam
 @endsection
 @section('content')
-    <div class="card p-4 shadow col-8">
-        <form action="{{ route('exam.store') }}" method="POST" enctype="multipart/form-data">
+    <div class="card p-4 shadow ">
+        <form class="row" action="{{ route('exam.store') }}" method="POST" enctype="multipart/form-data">
             @method('POST')
             @csrf
             {{-- multipal image --}}
-            <div class="upload__box mt-2 border rounded">
+            <div class="upload__box mt-2 border rounded ">
                 <div class="upload__btn-box mt-3">
                     <label class="upload__btn">
                         <p>Upload question paper <i class="bi bi-file-earmark-image"></i></p>
@@ -22,7 +22,7 @@
                 <div class="upload__img-wrap"></div>
             </div>
 
-            <div class="row row-cols-2 mt-4">
+            <div class="row row-cols-2 mt-4 col-8  rounded">
                 <div class="mb-3 col">
                     <label for="name" class="form-label">Select Batch</label>
                     <select class="form-select" aria-label="Default select example" name="batche">
@@ -102,6 +102,23 @@
                     @error('exam_marks')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
+                </div>
+            </div>
+            <div class="col-4 border mt-2">
+                <h4 class="text-center">Students</h4>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    @isset($student)
+                        @foreach ($student as $item)
+                            <div class="form-check border py-1 coursor-pointer" style="cursor: pointer;">
+                                <input name="student[]" class="form-check-input" type="checkbox"
+                                    value="{{ $item->id }}" id="flexCheckDefault{{ $item->id ?? '' }}">
+                                <label class="form-check-label" for="flexCheckDefault{{ $item->id ?? '' }}">
+                                    {{ $item->name ?? '' }}
+                                </label>
+                            </div>
+                        @endforeach
+                    @endisset
+
                 </div>
             </div>
 

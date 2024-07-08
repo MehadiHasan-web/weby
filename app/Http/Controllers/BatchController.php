@@ -77,8 +77,6 @@ class BatchController extends Controller
     {
         $students = User::where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
         $teachers = Teacher::where('institute_id', session('institute_id'))->latest()->get();
-        // dd($teachers);
-
         $selectedIdsStudents = json_decode($batch->students, true) ?: [];
         // dd($selectedIdsStudents);
         return view('admin.partials.batch.show', compact('batch','students','teachers','selectedIdsStudents', ));
@@ -126,12 +124,13 @@ class BatchController extends Controller
     public function add_students(Request $request,Batch $batch){
         $isn_id = session('institute_id');
         if($batch->institute_id === $isn_id){
-            $students = json_encode($request->students);
-            $teachers = json_encode($request->teachers);
-            $batch->update([
-                'students' => $students,
-                'teachers' => $teachers,
-            ]);
+            // $students = json_encode($request->students);
+            // $teachers = json_encode($request->teachers);
+            // $batch->update([
+            //     'students' => $students,
+            //     'teachers' => $teachers,
+            // ]);
+            $batch->users()->attach($request->input('batche'));
             flash()->success('Successfully added');
             return redirect()->back();
         }

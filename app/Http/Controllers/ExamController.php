@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ExamRequest;
 use App\Models\admin\Batch;
 use App\Models\admin\Exam;
+use App\Models\admin\ExamResult;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -14,7 +16,8 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+        $exam = Exam::where('institute_id', session('institute_id'))->latest()->get();
+        return view('admin.partials.exam.index',compact('exam'));
     }
 
     /**
@@ -23,8 +26,9 @@ class ExamController extends Controller
     public function create()
     {
         $batch = Batch::where('institute_id', session('institute_id'))->latest()->get();
+        $student = User::where('institute_id', session('institute_id'))->latest()->get();
 
-        return view('admin.partials.exam.create', compact('batch'));
+        return view('admin.partials.exam.create', compact('batch' , 'student'));
     }
 
     /**
@@ -32,6 +36,7 @@ class ExamController extends Controller
      */
     public function store(ExamRequest $request)
     {
+        // dd($request->input('student'));
         $data = [
             'institute_id' => session('institute_id'),
             'batche_id' => $request->batche,
@@ -42,7 +47,8 @@ class ExamController extends Controller
             'total_time' => $request->total_time,
             'exam_marks' => $request->exam_marks,
         ];
-        Exam::create($data);
+        $exam = Exam::create($data);
+        $exam->users()->attach($request->input('student'));
         flash()->success('Exam created successfully');
         return redirect()->back();
     }
@@ -52,7 +58,14 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        //
+        $batch = Batch::with('users')->where('id', $exam->batche_id)->first();
+        // $result = ExamResult::with('users')->get();
+        $exam = Exam::with(['examResults.user'])->findOrFail($exam->id);
+        // dd($exam->examResults->user->name);
+
+
+
+        return view('admin.partials.exam.show', compact('exam', 'batch'));
     }
 
     /**
@@ -76,6 +89,7 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        //
+        $exam->delete();
+        return response()->json('success');
     }
 }

@@ -3,6 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\admin\Attendance;
+use App\Models\admin\Batch;
+use App\Models\admin\Exam;
+use App\Models\admin\ExamResult;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -52,5 +57,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function exam(){
+        return $this->belongsToMany(Exam::class, 'exam_user');
+    }
+    public function batche(){
+        return $this->BelongsToMany(Batch::class, 'batche_user');
+    }
+    public function examResults()
+    {
+        return $this->hasMany(ExamResult::class);
+    }
+
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class);
+    }
+
+    public function attendanceRecords()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }
