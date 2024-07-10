@@ -9,10 +9,10 @@
     <div class="d-flex justify-content-center">
         <div class="mt-2 col-3">
             @isset($batches)
-                @foreach ($batches as $item)
+                @foreach ($batches as $key => $item)
                     <div data-aos="zoom-in-up" class="card p-4  px-5 mb-3 position-relative ">
-                        <strong class="position-absolute top-0 start-0 pt-1 ps-1 ">ID: <span
-                                class="text-success">{{ $item->id }}</span></strong>
+                        <strong class="position-absolute top-0 start-0 pt-1 ps-1 ">SL: <span
+                                class="text-success">{{ $key }}</span></strong>
                         <strong class="position-absolute top-0 end-0 pt-1 pe-1 ">Students: <span
                                 class="text-success">{{ $item->users->count() ?? '0' }}</span></strong>
                         <h2 class="mt-2">{{ $item->name ?? '' }}</h2>

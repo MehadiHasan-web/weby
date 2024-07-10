@@ -38,15 +38,44 @@
                     <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
                     Exams
                 </a>
-                <a class="nav-link" href="{{ route('attendance') }}">
-                    <div class="sb-nav-link-icon"><i class="bi bi-people"></i></div>
+
+                <div class="sb-sidenav-menu-heading">Attendance</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#teacher-attendance-report" aria-expanded="false"
+                    aria-controls="teacher-attendance-report">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Attendance
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <div class="collapse" id="teacher-attendance-report" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('attendance') }}">Student Attendance</a>
+                        <a class="nav-link" href="{{ route('teacher.attendance') }}">Teacher Attendance</a>
+                    </nav>
+                </div>
+
+                <div class="sb-sidenav-menu-heading">Attendance Report</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#teacher-attendance" aria-expanded="false" aria-controls="teacher-attendance">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Attendance report
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="teacher-attendance" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('attendance.report') }}">Student report</a>
+                        <a class="nav-link" href="{{ route('teacher.report') }}">Teacher report</a>
+                    </nav>
+                </div>
+
+
             </div>
         </div>
-        <div class="sb-sidenav-footer">
+        {{-- <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
             Start Bootstrap
-        </div>
+        </div> --}}
     </nav>
 </div>

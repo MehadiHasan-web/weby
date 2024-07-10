@@ -2,16 +2,20 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceReportController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExamResultController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherAttendanceController;
+use App\Http\Controllers\TeacherAttendReportController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ViewController;
 use App\Livewire\Students;
 use Illuminate\Support\Facades\Route;
 use Livewire\Mechanisms\HandleComponents\ViewContext;
+use App\Test\TestLogic;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,17 +43,25 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/absent/{user}/{exam}', [ExamResultController::class, 'absent'])->name('result.absent');
     Route::resource('/result', ExamResultController::class)->only('store','edit');
 
+    // student attendance
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
     Route::get('/attendance/index/{batch}', [AttendanceController::class, 'create'])->name('attendance.index');
     Route::get('/attendance/present/{userId}/{batchId}', [AttendanceController::class, 'present'])->name('attendance.present');
     Route::get('/attendance/late_present/{userId}/{batchId}', [AttendanceController::class, 'late_present'])->name('attendance.late_present');
     Route::get('/attendance/absent/{userId}/{batchId}', [AttendanceController::class, 'absent'])->name('attendance.absent');
-
-
-
+    Route::get('/attendance-report', [AttendanceReportController::class, 'index'])->name('attendance.report');
+    // teacher attendance
+    Route::get('/teacher-attendance', [TeacherAttendanceController::class, 'index'])->name('teacher.attendance');
+    Route::get('/attendance/present/{teacherId}', [TeacherAttendanceController::class, 'present'])->name('teacher.present');
+    Route::get('/attendance/late_present/{teacherId}', [TeacherAttendanceController::class, 'late_present'])->name('teacher.late_present');
+    Route::get('/attendance/absent/{teacherId}', [TeacherAttendanceController::class, 'absent'])->name('teacher.absent');
+    Route::get('/teacher-attendance-report', [TeacherAttendReportController::class, 'index'])->name('teacher.report');
 
 });
-
+Route::get('/test', function(){
+    $product= new TestLogic;
+    return $product->getName();
+});
 
 
 Route::middleware('auth')->group(function () {

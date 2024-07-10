@@ -6,6 +6,7 @@
 
 @livewireScripts
 
+
 {{--  image  --}}
 <script>
     function readURL(input) {
