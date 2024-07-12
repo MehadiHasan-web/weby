@@ -8,6 +8,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExamResultController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TeacherAttendanceController;
 use App\Http\Controllers\TeacherAttendReportController;
 use App\Http\Controllers\TeacherController;
@@ -56,6 +57,10 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/attendance/late_present/{teacherId}', [TeacherAttendanceController::class, 'late_present'])->name('teacher.late_present');
     Route::get('/attendance/absent/{teacherId}', [TeacherAttendanceController::class, 'absent'])->name('teacher.absent');
     Route::get('/teacher-attendance-report', [TeacherAttendReportController::class, 'index'])->name('teacher.report');
+
+    //payment
+    Route::get('/student-payment', [StudentPaymentController::class, 'index'])->name('student.index');
+    Route::post('/student-payment/{user_id}', [StudentPaymentController::class, 'payment'])->name('student.payment');
 
 });
 Route::get('/test', function(){
