@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('teacher_payments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('teacher_id')->constrained('teachers')->onDelete('cascade');
-            $table->bigInteger('institute_id')->constrained('institutes')->onDelete('restrict');
-            $table->integer('fee');
+            $table->bigInteger('teacher_id')->constrained('teachers')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->bigInteger('institute_id')->constrained('institutes')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('hourly_rate');
             $table->integer('paid')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();

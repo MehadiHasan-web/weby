@@ -70,17 +70,17 @@
                     </nav>
                 </div>
 
-                <div class="sb-sidenav-menu-heading">FEE</div>
+                <div class="sb-sidenav-menu-heading">Payment</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#FEE"
                     aria-expanded="false" aria-controls="FEE">
                     <div class="sb-nav-link-icon"><i class="fas fa-account"></i></div>
-                    Fee
+                    Payment
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="FEE" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ route('student.index') }}">Student Fee</a>
-                        {{-- <a class="nav-link" href="{{ route('teacher.report') }}">Teacher </a> --}}
+                        <a class="nav-link" href="{{ route('student.index') }}">Student Payment</a>
+                        <a class="nav-link" href="{{ route('teacher.payment') }}">Teacher Payment</a>
                     </nav>
                 </div>
 

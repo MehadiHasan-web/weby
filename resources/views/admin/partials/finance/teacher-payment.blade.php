@@ -3,34 +3,36 @@
 @endphp
 @extends('admin.master.master')
 @section('title')
-    Payment
+    Teacher
 @endsection
 @section('content')
     <div class=" mt-4 rounded shadow">
 
-        <h2 class="text-center my-4 ">Student's Due Payment</h2>
+        <h2 class="text-center my-4 ">Teacher's Due Payment</h2>
         <table class="table table-hover ">
             <thead class="border bg-primary text-white">
                 <tr>
                     <th scope="col">SL</th>
-                    <th scope="col">Student Name</th>
+                    <th scope="col">Teacher Name</th>
                     <th scope="col">Per Month's Fee</th>
-                    <th scope="col">Number of Months</th>
+                    <th scope="col">Number of Hour</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @isset($student)
-                    @forelse ($student as $key => $item)
+                @isset($teacher)
+                    @forelse ($teacher as $key => $item)
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
-                            <td>{{ $item->user->name ?? '' }}</td>
-                            <td>{{ $item->fee ?? '' }} Tk</td>
-                            <td>{{ DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->paid ?? '0') }}
-                            </td>
+                            <td>{{ $item->teacher->name ?? '' }}</td>
+                            <td>{{ $item->hourly_rate ?? '' }} Tk</td>
                             <td colspan="2">
-                                <form action="{{ route('student.payment', $item->user->id) }}" method="POST">
+                                {{ DateHelper::teacherTotalHourOrAmount($item->teacher->teacher_time, $item->hourly_rate, $item->paid) }}
+                            </td>
+
+                            <td colspan="2">
+                                <form action="{{ route('teacher.payment.paid', $item->teacher->id) }}" method="POST">
                                     @csrf
                                     @method('POST')
                                     <div class="input-group w-75">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequest;
 use App\Models\admin\Teacher;
+use App\Models\admin\TeacherPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -58,7 +59,14 @@ class TeacherController extends Controller
         }
 
         if(Auth::user()->hasRole('moderator')){
-            Teacher::create($data);
+            $teacher = Teacher::create($data);
+            TeacherPayment::create([
+                'teacher_id' => $teacher->id,
+                'institute_id' => session('institute_id'),
+                'hourly_rate' => $request->teacher_fee,
+                'paid' => 0,
+            ]);
+
             flash()->success('Teacher created ');
             return redirect()->route('teacher.index');
         }else{

@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TeacherAttendanceController;
 use App\Http\Controllers\TeacherAttendReportController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeacherPaymentController;
 use App\Http\Controllers\ViewController;
 use App\Livewire\Students;
 use Illuminate\Support\Facades\Route;
@@ -58,9 +59,12 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/attendance/absent/{teacherId}', [TeacherAttendanceController::class, 'absent'])->name('teacher.absent');
     Route::get('/teacher-attendance-report', [TeacherAttendReportController::class, 'index'])->name('teacher.report');
 
-    //payment
+    // student payment
     Route::get('/student-payment', [StudentPaymentController::class, 'index'])->name('student.index');
     Route::post('/student-payment/{user_id}', [StudentPaymentController::class, 'payment'])->name('student.payment');
+    // teacher payment
+    Route::get('/teacher-payment', [TeacherPaymentController::class, 'index'])->name('teacher.payment');
+    Route::post('/teacher-payment/{teacher_id}', [TeacherPaymentController::class, 'payment'])->name('teacher.payment.paid');
 
 });
 Route::get('/test', function(){

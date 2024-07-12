@@ -12,54 +12,23 @@ class TeacherPaymentController extends Controller
      */
     public function index()
     {
-        //
+        $teacher = TeacherPayment::with('teacher')->where('institute_id', session('institute_id'))->latest()->get();
+        return view('admin.partials.finance.teacher-payment', compact('teacher'));
+    }
+    public function payment(Request $request, $teacherId){
+
+        $validation = $request->validate([
+            'fee' => 'required|integer',
+            'note' => 'nullable'
+        ]);
+        $payment = TeacherPayment::where('teacher_id', $teacherId)->where('institute_id', session('institute_id'))->first();
+        $total = $payment->paid + $request->fee;
+        $payment->update([
+            'paid' => $total,
+            'note' => $request->note
+        ]);
+        flash()->success($payment->teacher->name . " is paid");
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(TeacherPayment $teacherPayment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(TeacherPayment $teacherPayment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, TeacherPayment $teacherPayment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(TeacherPayment $teacherPayment)
-    {
-        //
-    }
 }
