@@ -12,30 +12,32 @@
         <table class="table table-hover ">
             <thead class="border bg-primary text-white">
                 <tr>
-                    <th scope="col">SL</th>
+                    {{-- <th scope="col">SL</th> --}}
                     <th scope="col">Student Name</th>
                     <th scope="col">Per Month's Fee</th>
                     <th scope="col">Number of Months</th>
-                    <th scope="col">Amount</th>
+                    <th scope="col"></th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @isset($student)
                     @forelse ($student as $key => $item)
-                        <tr>
-                            <th scope="row">{{ $key + 1 }}</th>
-                            <td>{{ $item->user->name ?? '' }}</td>
+                        @php
+                            $amount = DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->id);
+                        @endphp
+                        <tr @if ($amount == 0) hidden @endif>
+                            <td>{{ $item->name ?? '' }}</td>
                             <td>{{ $item->fee ?? '' }} Tk</td>
-                            <td>{{ DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->paid ?? '0') }}
+                            <td>{{ DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->id) }}
                             </td>
                             <td colspan="2">
-                                <form action="{{ route('student.payment', $item->user->id) }}" method="POST">
+                                <form action="{{ route('student.payment', $item->id) }}" method="POST">
                                     @csrf
                                     @method('POST')
                                     <div class="input-group w-75">
-                                        <input name="fee" type="number" class="form-control" placeholder="Amount"
-                                            value="{{ old('fee') }}">
+                                        <input name="paid" type="number" class="form-control" placeholder="Amount"
+                                            value="{{ old('paid') }}">
 
                                         <div class="dropdown ms-2">
                                             <button class="btn btn-outline-primary dropdown-toggle" type="button"
@@ -53,7 +55,7 @@
                                         <button class="btn btn-outline-primary ms-2" type="submit">Submit</button>
                                     </div>
                                 </form>
-                                @error('fee')
+                                @error('paid')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
 

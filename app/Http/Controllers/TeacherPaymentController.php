@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin\Teacher;
 use App\Models\admin\TeacherPayment;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class TeacherPaymentController extends Controller
      */
     public function index()
     {
-        $teacher = TeacherPayment::with('teacher')->where('institute_id', session('institute_id'))->latest()->get();
+        $teacher = Teacher::where('institute_id', session('institute_id'))->latest()->get();
+        // dd($teacher);
         return view('admin.partials.finance.teacher-payment', compact('teacher'));
     }
     public function payment(Request $request, $teacherId){
@@ -21,13 +23,13 @@ class TeacherPaymentController extends Controller
             'fee' => 'required|integer',
             'note' => 'nullable'
         ]);
-        $payment = TeacherPayment::where('teacher_id', $teacherId)->where('institute_id', session('institute_id'))->first();
-        $total = $payment->paid + $request->fee;
-        $payment->update([
-            'paid' => $total,
+        TeacherPayment::create([
+            'teacher_id' => $teacherId,
+            'institute_id' => session('institute_id'),
+            'paid' => $request->fee,
             'note' => $request->note
         ]);
-        flash()->success($payment->teacher->name . " is paid");
+        flash()->success("Payment is success");
         return redirect()->back();
     }
 

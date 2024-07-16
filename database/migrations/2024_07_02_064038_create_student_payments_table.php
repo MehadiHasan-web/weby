@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('student_payments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->constrained('users')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->bigInteger('student_id')->constrained('students')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->bigInteger('institute_id')->constrained('institutes')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('fee');
             $table->integer('paid')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();

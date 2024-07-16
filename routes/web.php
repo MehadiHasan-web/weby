@@ -7,7 +7,9 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExamResultController;
 use App\Http\Controllers\InstituteController;
+use App\Http\Controllers\PaymentReport;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentPaymentController;
 use App\Http\Controllers\TeacherAttendanceController;
 use App\Http\Controllers\TeacherAttendReportController;
@@ -36,7 +38,6 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/institute-approval/{id}', [InstituteController::class, 'approved'])->name('institute.approval');
     Route::get('/institute-pending/{id}', [InstituteController::class, 'pending'])->name('institute.pending');
     Route::resource('/institute', InstituteController::class);
-    Route::get('/students', [ViewController::class, 'students'] )->name('students.index');
     Route::get('/student-profile/{user}', [ViewController::class, 'student_profile'])->name('student.profile');
     Route::post('/add-students/{batch}',[BatchController::class, 'add_students'] )->name('batch.add.student');
     Route::resource('/batch', BatchController::class);
@@ -60,11 +61,16 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/teacher-attendance-report', [TeacherAttendReportController::class, 'index'])->name('teacher.report');
 
     // student payment
-    Route::get('/student-payment', [StudentPaymentController::class, 'index'])->name('student.index');
-    Route::post('/student-payment/{user_id}', [StudentPaymentController::class, 'payment'])->name('student.payment');
+    Route::get('/student-payment', [StudentPaymentController::class, 'index'])->name('student.payment.index');
+    Route::post('/student-payment/{student_id}', [StudentPaymentController::class, 'payment'])->name('student.payment');
     // teacher payment
     Route::get('/teacher-payment', [TeacherPaymentController::class, 'index'])->name('teacher.payment');
     Route::post('/teacher-payment/{teacher_id}', [TeacherPaymentController::class, 'payment'])->name('teacher.payment.paid');
+
+    // student
+    Route::resource('/student', StudentController::class);
+    // report
+    Route::get('/student-report/{id}', [PaymentReport::class, 'student'])->name('student.payment.report');
 
 });
 Route::get('/test', function(){

@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\admin\Institute;
+use App\Models\admin\Student;
 use App\Models\admin\StudentPayment;
 use App\Models\User;
 use Livewire\Component;
@@ -35,7 +37,8 @@ class Students extends Component
 
     public function render()
     {
-        $this->students = User::withoutRole('admin')->where('status', 2)->whereNotNull('institute_id')->latest()->get();
+        // $this->students = User::withoutRole('admin')->where('status', 2)->whereNotNull('institute_id')->latest()->get();
+        $this->students = Student::where('institute_id', session('institute_id'))->latest()->get();
         return view('livewire.students');
     }
 }
