@@ -12,8 +12,8 @@ class StudentPayment extends Model
     protected $fillable = [
         'student_id', 'institute_id',  'paid','note'
     ];
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
 }

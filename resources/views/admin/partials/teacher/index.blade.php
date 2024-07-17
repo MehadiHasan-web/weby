@@ -41,6 +41,8 @@
                                 <button type="submit" class="btn btn-danger btn-sm delate-item-btn"
                                     data-delate-route="{{ route('teacher.destroy', $item->id) }}"><i
                                         class="bi bi-trash3"></i></button>
+                                <a href="{{ route('teacher.payment.report', $item->id) }}"
+                                    class="btn btn-success btn-sm">Report</a>
                             </div>
                         </td>
                     </tr>

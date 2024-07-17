@@ -4,6 +4,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceReportController;
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\CashboxController;
+use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExamResultController;
 use App\Http\Controllers\InstituteController;
@@ -31,9 +34,7 @@ Route::get('/', function () {
 // Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard'],
 Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard'],function(){
 
-    Route::get('/', function () {
-        return view('admin.modules.dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/institute-approval/{id}', [InstituteController::class, 'approved'])->name('institute.approval');
     Route::get('/institute-pending/{id}', [InstituteController::class, 'pending'])->name('institute.pending');
@@ -66,17 +67,17 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // teacher payment
     Route::get('/teacher-payment', [TeacherPaymentController::class, 'index'])->name('teacher.payment');
     Route::post('/teacher-payment/{teacher_id}', [TeacherPaymentController::class, 'payment'])->name('teacher.payment.paid');
-
     // student
     Route::resource('/student', StudentController::class);
     // report
     Route::get('/student-report/{id}', [PaymentReport::class, 'student'])->name('student.payment.report');
+    Route::get('/teacher-report/{id}', [PaymentReport::class, 'teacher'])->name('teacher.payment.report');
+    // cashbox
+    Route::post('/cash-income', [CashboxController::class, 'create'])->name('cash.income');
+    Route::post('/cash-expense', [CashboxController::class, 'expense'])->name('cash.expense');
 
 });
-Route::get('/test', function(){
-    $product= new TestLogic;
-    return $product->getName();
-});
+
 
 
 Route::middleware('auth')->group(function () {

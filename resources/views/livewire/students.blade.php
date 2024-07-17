@@ -9,7 +9,6 @@
                 <th scope="col">Fee</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Profile</th>
-                <th scope="col">Report</th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +33,10 @@
                         <td>
                             <a href="{{ route('student.profile', $item->id) }}" class="btn btn-info me-2 btn-sm">Profile
                                 <i class="bi bi-person-lines-fill ms-2"></i></a>
+                            <a href="{{ route('student.payment.report', $item->id) }}"
+                                class="btn btn-success btn-sm">Report</a>
                         </td>
-                        <td>
-                            <a href="{{ route('student.payment.report', $item->id) }}" class="btn btn-success">Report</a>
-                        </td>
+
                     </tr>
                 @endforeach
             @endisset
