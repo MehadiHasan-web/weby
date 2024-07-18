@@ -11,55 +11,120 @@
         <h1>CASH BOX</h1>
     </div>
     <div class="row">
-        <div class="col-xl-3 col-md-6 position-relative">
-            <div class="card bg-info text-white mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-info text-white mb-4  position-relative">
                 <h3 class="card-body">Enter Income</h3>
                 <div class="card-body">
                     <h2 class="countNumber"><span id="countIncome">{{ $totalIncome ?? '' }}</span> Tk</h2>
                 </div>
+                <div class="position-absolute bottom-0 end-0 pe-3 pb-3">
+                    <button class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
+                            class="bi bi-plus"></i></button>
+                </div>
             </div>
-            <div class="position-absolute bottom-0 end-0 pe-5 pb-5">
-                <button class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
-                        class="bi bi-plus"></i></button>
-            </div>
+
         </div>
-        <div class="col-xl-3 col-md-6 position-relative">
-            <div class="card bg-warning text-white mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4  position-relative">
                 <h3 class="card-body text-dark">Enter Expense</h3>
                 <div class="card-body">
                     <h2 class="text-dark countNumber"><span id="countExpense">{{ $totalExpanse ?? '' }}</span> Tk</h2>
                 </div>
-            </div>
-            <div class="position-absolute bottom-0 end-0 pe-5 pb-5">
-                <button class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#Expense"><i
-                        class="bi bi-plus"></i></button>
+                <div class="position-absolute bottom-0 end-0 pe-3 pb-3">
+                    <button class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#Expense"><i
+                            class="bi bi-plus"></i></button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-6 mb-4 pe-3">
-        <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">See this
-                month details</button>
+        {{-- see month detales  --}}
+        <div class="col-xl-6 col-md-6 position-relative">
+            <div class=" mb-4 pe-3">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">See
+                        this month details</button>
+
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#seeAllMonth">See
+                        all finence report</button>
+                </div>
+            </div>
         </div>
+
     </div>
+
+
+    {{-- CASH INFLOW --}}
     <div class="row">
         <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
+            <div class="card mb-4 shadow">
+                <h1 class="card-header bg-primary text-white">
                     <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Example
-                </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
+                    CASH INFLOW
+                </h1>
+                <div class="card-body p-0">
+                    <div class="d-flex p-1 border">
+                        <div class="col-6 bg-info rounded">
+                            <h2 class="text-white py-3 text-center">Student Fee</h2>
+                        </div>
+                        <div class="col-6">
+                            <h2 class="py-3 text-center"><span>{{ $total_student_fee ?? '00' }}</span> Tk</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex p-1 border">
+                        <div class="col-6 bg-info rounded">
+                            <h2 class="text-white py-3 text-center">Others</h2>
+                        </div>
+                        <div class="col-6">
+                            <h2 class="py-3 text-center"><span>{{ $totalIncome ?? '00' }}</span> Tk</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex p-1 border  bg-success rounded">
+                        <div class="col-6">
+                            <h2 class="text-white py-1 text-center">Total</h2>
+                        </div>
+                        <div class="col-6">
+                            <h2 class="py-1 text-center text-white">
+                                <span>{{ $total_student_fee + $totalIncome }}</span> Tk
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{-- cash outflow --}}
         <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-bar me-1"></i>
-                    Bar Chart Example
-                </div>
-                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas>
+            <div class="card mb-4 shadow">
+                <h1 class="card-header bg-primary text-white">
+                    <i class="fas fa-chart-area me-1"></i>
+                    CASH OUTFLOW
+                </h1>
+                <div class="card-body p-0">
+                    <div class="d-flex p-1 border">
+                        <div class="col-6 bg-warning rounded">
+                            <h2 class="text-white py-3 text-center">Teaches Salary</h2>
+                        </div>
+                        <div class="col-6">
+                            <h2 class="py-3 text-center"><span>{{ $teacher_salary ?? '00' }}</span> Tk</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex p-1 border">
+                        <div class="col-6 bg-warning rounded">
+                            <h2 class="text-white py-3 text-center">Others</h2>
+                        </div>
+                        <div class="col-6">
+                            <h2 class="py-3 text-center"><span>{{ $totalExpanse ?? '00' }}</span> Tk</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex p-1 border  bg-danger rounded">
+                        <div class="col-6">
+                            <h2 class="text-white py-1 text-center">Total</h2>
+                        </div>
+                        <div class="col-6">
+                            <h2 class="py-1 text-center text-white">
+                                <span>{{ $teacher_salary + $totalExpanse }}</span> Tk
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,14 +203,13 @@
 
     {{-- income and expense month details  --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-xl ">
             <div class="modal-content ">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">See this month details</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="printarea">
-
                     <div class="p-2 border">
                         <table class="table">
                             <thead>
@@ -193,6 +257,70 @@
                 </div>
                 <div class="modal-footer">
                     <button id="print" class="btn btn-outline-dark "><i class="bi bi-printer-fill"></i></button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- income and expense month details  --}}
+    <div class="modal fade" id="seeAllMonth" tabindex="-1" aria-labelledby="seeAllMonth" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-4 text-center font-bold text-success" id="seeAllMonth">LAST 6 MONTHS
+                        FINANCIAL REPORTS OF INSTITUTE
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="printarea">
+                    <div class="row row-cols-2 ">
+                        {{-- month 1 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 1]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">January
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 2 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 2]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">February
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 3 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 3]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">March
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 4 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 4]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">April
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 5 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 5]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">May
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 6 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 6]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">June
+                                2024
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>

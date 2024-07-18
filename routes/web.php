@@ -75,6 +75,8 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // cashbox
     Route::post('/cash-income', [CashboxController::class, 'create'])->name('cash.income');
     Route::post('/cash-expense', [CashboxController::class, 'expense'])->name('cash.expense');
+    Route::get('/financial/{month}', [DashboardController::class, 'month_report'])->name('financial.month.report');
+
 
 });
 
