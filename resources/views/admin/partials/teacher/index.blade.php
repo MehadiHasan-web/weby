@@ -10,7 +10,7 @@
         </div>
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col">SL</th>
                 <th scope="col">Name</th>
                 <th scope="col">Subject</th>
                 <th scope="col">Phone</th>
@@ -21,9 +21,9 @@
         </thead>
         <tbody>
             @isset($teachers)
-                @foreach ($teachers as $item)
+                @foreach ($teachers as $key => $item)
                     <tr>
-                        <th scope="row">{{ $item->id ?? '' }}</th>
+                        <th scope="row">{{ $key + 1 ?? '' }}</th>
                         <td><img class="img-fluid img-fluid" src="{{ URL::to('storage/teacher/' . $item->photo ?? '') }}"
                                 alt="" style="width:38px; height:38px; ">
                             {{ $item->name ?? '' }}</td>

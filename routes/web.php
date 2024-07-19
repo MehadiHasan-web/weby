@@ -39,7 +39,6 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::get('/institute-approval/{id}', [InstituteController::class, 'approved'])->name('institute.approval');
     Route::get('/institute-pending/{id}', [InstituteController::class, 'pending'])->name('institute.pending');
     Route::resource('/institute', InstituteController::class);
-    Route::get('/student-profile/{user}', [ViewController::class, 'student_profile'])->name('student.profile');
     Route::post('/add-students/{batch}',[BatchController::class, 'add_students'] )->name('batch.add.student');
     Route::resource('/batch', BatchController::class);
     Route::resource('/teacher', TeacherController::class);
@@ -50,15 +49,17 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // student attendance
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
     Route::get('/attendance/index/{batch}', [AttendanceController::class, 'create'])->name('attendance.index');
-    Route::get('/attendance/present/{userId}/{batchId}', [AttendanceController::class, 'present'])->name('attendance.present');
-    Route::get('/attendance/late_present/{userId}/{batchId}', [AttendanceController::class, 'late_present'])->name('attendance.late_present');
-    Route::get('/attendance/absent/{userId}/{batchId}', [AttendanceController::class, 'absent'])->name('attendance.absent');
+    Route::get('/attendance/present/{studentId}/{batchId}', [AttendanceController::class, 'present'])->name('attendance.present');
+    Route::get('/attendance/late_present/{studentId}/{batchId}', [AttendanceController::class, 'late_present'])->name('attendance.late_present');
+    Route::get('/attendance/absent/{studentId}/{batchId}', [AttendanceController::class, 'absent'])->name('attendance.absent');
+    // attendance report
     Route::get('/attendance-report', [AttendanceReportController::class, 'index'])->name('attendance.report');
     // teacher attendance
     Route::get('/teacher-attendance', [TeacherAttendanceController::class, 'index'])->name('teacher.attendance');
     Route::get('/attendance/present/{teacherId}', [TeacherAttendanceController::class, 'present'])->name('teacher.present');
     Route::get('/attendance/late_present/{teacherId}', [TeacherAttendanceController::class, 'late_present'])->name('teacher.late_present');
     Route::get('/attendance/absent/{teacherId}', [TeacherAttendanceController::class, 'absent'])->name('teacher.absent');
+    // teacher attendance report
     Route::get('/teacher-attendance-report', [TeacherAttendReportController::class, 'index'])->name('teacher.report');
 
     // student payment

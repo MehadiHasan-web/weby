@@ -11,14 +11,14 @@ class ExamResult extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'student_id',
         'exam_id',
         'marks',
         'status'
     ];
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
     public function exam()
     {

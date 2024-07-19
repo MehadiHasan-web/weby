@@ -48,7 +48,7 @@ class ExamController extends Controller
             'exam_marks' => $request->exam_marks,
         ];
         $exam = Exam::create($data);
-        $exam->users()->attach($request->input('student'));
+        // $exam->student()->attach($request->input('student'));
         flash()->success('Exam created successfully');
         return redirect()->back();
     }
@@ -58,11 +58,11 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        $batch = Batch::with('users')->where('id', $exam->batche_id)->first();
+        $batch = Batch::with('student')->where('id', $exam->batche_id)->first();
         // $result = ExamResult::with('users')->get();
-        $exam = Exam::with(['examResults.user'])->findOrFail($exam->id);
-        // dd($exam->examResults->user->name);
+        $exam = Exam::with(['examResults.student'])->findOrFail($exam->id);
 
+        // dd($exam);
 
 
         return view('admin.partials.exam.show', compact('exam', 'batch'));

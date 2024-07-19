@@ -29,13 +29,13 @@ class ExamResultController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required|integer|exists:users,id',
+            'student_id' => 'required|integer|exists:students,id',
             'exam_id' => 'required|integer|exists:exams,id',
             'marks' => 'required|integer|min:0',
         ]);
 
         $condition = [
-            'user_id' => $request->input('user_id'),
+            'student_id' => $request->input('student_id'),
             'exam_id' => $request->input('exam_id'),
         ];
 
@@ -73,16 +73,9 @@ class ExamResultController extends Controller
         // dd($examResult);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(ExamResult $examResult)
-    // {
-    //     //
-    // }
-    public function absent($userId, $examId){
+    public function absent($studentId, $examId){
         $condition = [
-            'user_id' => $userId,
+            'student_id' => $studentId,
             'exam_id' => $examId,
         ];
 

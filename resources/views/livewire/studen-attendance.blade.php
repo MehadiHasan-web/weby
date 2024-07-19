@@ -46,7 +46,7 @@
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
                                 <td><a
-                                        href="{{ route('student.profile', $item->user->id) }}">{{ $item->user->name ?? '' }}</a>
+                                        href="{{ route('student.show', $item->student->id) }}">{{ $item->student->name ?? '' }}</a>
                                 </td>
                                 <td>
                                     <div class="d-flex ">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BatchRequest;
 use App\Models\admin\Batch;
+use App\Models\admin\Student;
 use App\Models\admin\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batch = Batch::all();
+        $batch = Batch::where('institute_id', session('institute_id'))->latest()->get();
         return view('admin.partials.batch.index', compact('batch'));
     }
 
@@ -75,9 +76,10 @@ class BatchController extends Controller
      */
     public function show(Batch $batch)
     {
-        $students = User::where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
+        $students = Student::where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
         $teachers = Teacher::where('institute_id', session('institute_id'))->latest()->get();
-        $selectedIdsStudents = json_decode($batch->students, true) ?: [];
+        $selectedIdsStudents = json_decode($batch->student, true) ?: [];
+
         // dd($selectedIdsStudents);
         return view('admin.partials.batch.show', compact('batch','students','teachers','selectedIdsStudents', ));
     }
@@ -130,7 +132,7 @@ class BatchController extends Controller
             //     'students' => $students,
             //     'teachers' => $teachers,
             // ]);
-            $batch->users()->attach($request->input('batche'));
+            $batch->student()->attach($request->input('student'));
             flash()->success('Successfully added');
             return redirect()->back();
         }

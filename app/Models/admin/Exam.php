@@ -21,8 +21,8 @@ class Exam extends Model
         // 'user_id'
     ];
 
-    public function users(){
-        return $this->belongsToMany(User::class, 'exam_user');
+    public function student(){
+        return $this->belongsToMany(Student::class, 'exam_student');
     }
     public function batch(){
         return $this->belongsTo(Batch::class);

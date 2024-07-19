@@ -317,6 +317,48 @@
                                 2024
                             </a>
                         </div>
+                        {{-- month 7 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 7]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">July
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 8 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 8]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">August
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 3 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 9]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">Septemper
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 10 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 10]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">October
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 11 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 11]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">November
+                                2024
+                            </a>
+                        </div>
+                        {{-- month 12 --}}
+                        <div class="col">
+                            <a href="{{ route('financial.month.report', ['month' => 12]) }}"
+                                class="text-white w-100 text-decoration-none fw-bold fs-2 btn btn-primary mb-2">December
+                                2024
+                            </a>
+                        </div>
 
                     </div>
                 </div>

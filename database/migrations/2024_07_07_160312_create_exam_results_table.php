@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('exam_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constant()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('student_id')->constant()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('exam_id')->constant()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('marks');
             $table->string('status')->comment('0=absent, 1=present')->default(0);

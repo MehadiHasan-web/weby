@@ -49,7 +49,7 @@
             <form action="{{ route('batch.add.student', $batch->id) }}" method="POST">
                 @csrf
                 <h2>Add Student</h2>
-                <select class="js-example-basic-multiple w-100 mb-4" name="batche[]" multiple="multiple">
+                <select class="js-example-basic-multiple w-100 mb-4" name="student[]" multiple="multiple">
                     @isset($students)
                         @foreach ($students as $item)
                             <option value="{{ $item->id }}">{{ $item->name ?? '' }} || {{ $item->id ?? '' }}</option>
@@ -109,21 +109,21 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
+                                    <th scope="col">SL</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @isset($students)
-                                    @foreach ($students as $item)
-                                        @if (in_array($item->id, $selectedIdsStudents))
-                                            <tr>
-                                                <th scope="row">{{ $item->id ?? '' }}</th>
-                                                <td>{{ $item->name ?? '' }}</td>
-                                                <td>Remove</td>
-                                            </tr>
-                                        @endif
+                                @isset($batch->student)
+                                    @foreach ($batch->student as $key => $item)
+                                        {{-- @if (in_array($item->id, $selectedIdsStudents)) --}}
+                                        <tr>
+                                            <th scope="row">{{ $key + 1 }}</th>
+                                            <td>{{ $item->name ?? '' }}</td>
+                                            <td>Remove</td>
+                                        </tr>
+                                        {{-- @endif --}}
                                     @endforeach
                                 @endisset
 

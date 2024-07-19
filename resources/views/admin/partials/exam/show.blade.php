@@ -8,7 +8,7 @@
             <div class="row row-cols-2">
                 <div class="col mb-3">
                     <h5>Batche</h5>
-                    <p>{{ $exam->batche_id ?? '' }}</p>
+                    <p>{{ $batch->name ?? '' }}</p>
                 </div>
 
                 <div class="col mb-3">
@@ -46,12 +46,12 @@
         <div class="col-4 border shadow rounded  mb-4">
             <h2>Students</h2>
             <div class="mt-4  mb-3 row row-cols-1 px-2">
-                @isset($batch->users)
-                    @foreach ($exam->examResults as $key => $item)
+                @isset($exam->examResults)
+                    @forelse ($exam->examResults as $key => $item)
                         <div class="d-flex justify-content-between  p-2 rounded border  mb-2">
-                            <a href="{{ route('student.profile', $item->user->id) }}">
+                            <a href="{{ route('student.show', $item->id) }}">
                                 <strong class="col me-2">{{ $key + 1 }}.
-                                    {{ $item->user->name ?? '' }}</strong>
+                                    {{ $item->student->name ?? '' }}</strong>
                             </a>
                             <div class="d-flex justify-items-center ">
                                 <div class="input-group input-group-sm ">
@@ -68,7 +68,11 @@
 
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="d-fle justify-content-center">
+                            <img class="img-fluid" src="{{ asset('not_found.png') }}" alt="">
+                        </div>
+                    @endforelse
                 @endisset
             </div>
         </div>
@@ -83,8 +87,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="mt-4  mb-3 row row-cols-1 px-2">
-                            @isset($batch->users)
-                                @foreach ($batch->users as $key => $item)
+                            @isset($batch->student)
+                                @foreach ($batch->student as $key => $item)
                                     <div class="d-flex justify-content-between  p-2 rounded border  mb-2">
                                         <strong class="col me-2">{{ $key + 1 }}.
                                             {{ $item->name ?? '' }}</strong>
@@ -93,7 +97,7 @@
                                                 method="POST">
                                                 @csrf
                                                 @method('POST')
-                                                <input name="user_id" type="number" class="form-control w-50 hidden"
+                                                <input name="student_id" type="number" class="form-control w-50 hidden"
                                                     value="{{ $item->id ?? '' }}" hidden>
                                                 <input name="exam_id" type="number" class="form-control w-50 hidden"
                                                     value="{{ $exam->id ?? '' }}" hidden>

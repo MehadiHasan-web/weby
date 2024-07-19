@@ -62,9 +62,7 @@ class User extends Authenticatable
     public function exam(){
         return $this->belongsToMany(Exam::class, 'exam_user');
     }
-    public function batche(){
-        return $this->BelongsToMany(Batch::class, 'batche_user');
-    }
+
     public function examResults()
     {
         return $this->hasMany(ExamResult::class);

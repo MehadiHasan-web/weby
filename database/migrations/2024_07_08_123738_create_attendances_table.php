@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('batch_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('date')->nullable();
             $table->string('is_present')->comment('0=present, 1=let present, 2=absent');

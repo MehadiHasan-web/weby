@@ -19,4 +19,8 @@ class Student extends Model
         'address',
         'photo',
     ];
+
+    public function batche(){
+        return $this->BelongsToMany(Batch::class, 'batche_student');
+    }
 }

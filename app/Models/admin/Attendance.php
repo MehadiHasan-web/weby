@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Attendance extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'batch_id', 'date', 'is_present'];
+    protected $fillable = ['student_id', 'batch_id', 'date', 'is_present'];
 
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
 
     public function batch()

@@ -18,7 +18,7 @@ class StudenAttendance extends Component
     ];
     public function attendance(){
         $this->validate();
-        $this->attendances = Attendance::with('user')->where('batch_id', $this->batch_id)->where('date', $this->date)->latest()->get();
+        $this->attendances = Attendance::with('student')->where('batch_id', $this->batch_id)->where('date', $this->date)->latest()->get();
         // dd($this->attendances);
     }
 

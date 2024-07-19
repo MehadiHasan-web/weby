@@ -18,7 +18,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::latest()->get();
+        $teachers = Teacher::where('institute_id', session('institute_id'))->latest()->get();
         return view('admin.partials.teacher.index', compact('teachers'));
     }
 
@@ -60,12 +60,12 @@ class TeacherController extends Controller
 
         if(Auth::user()->hasRole('moderator')){
             $teacher = Teacher::create($data);
-            TeacherPayment::create([
-                'teacher_id' => $teacher->id,
-                'institute_id' => session('institute_id'),
-                'hourly_rate' => $request->teacher_fee,
-                'paid' => 0,
-            ]);
+            // TeacherPayment::create([
+            //     'teacher_id' => $teacher->id,
+            //     'institute_id' => session('institute_id'),
+            //     'hourly_rate' => $request->teacher_fee,
+            //     'paid' => 0,
+            // ]);
 
             flash()->success('Teacher created ');
             return redirect()->route('teacher.index');

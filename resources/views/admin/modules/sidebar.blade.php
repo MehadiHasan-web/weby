@@ -83,23 +83,6 @@
                         <a class="nav-link" href="{{ route('teacher.payment') }}">Teacher Payment</a>
                     </nav>
                 </div>
-
-                <div class="sb-sidenav-menu-heading">Payment Report</div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#report-payment" aria-expanded="false" aria-controls="report-payment">
-                    <div class="sb-nav-link-icon"><i class="fas fa-account"></i></div>
-                    Payment
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="report-payment" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ route('student.payment.index') }}">Student Payment Report</a>
-                        <a class="nav-link" href="{{ route('teacher.payment') }}">Teacher Payment</a>
-                    </nav>
-                </div>
-
-
             </div>
         </div>
         {{-- <div class="sb-sidenav-footer">

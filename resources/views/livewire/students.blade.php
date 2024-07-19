@@ -31,7 +31,7 @@
                             <p>{{ $item->gender == 1 ? 'Mail' : 'Femail' }}</p>
                         </td>
                         <td>
-                            <a href="{{ route('student.profile', $item->id) }}" class="btn btn-info me-2 btn-sm">Profile
+                            <a href="{{ route('student.show', $item->id) }}" class="btn btn-info me-2 btn-sm">Profile
                                 <i class="bi bi-person-lines-fill ms-2"></i></a>
                             <a href="{{ route('student.payment.report', $item->id) }}"
                                 class="btn btn-success btn-sm">Report</a>
