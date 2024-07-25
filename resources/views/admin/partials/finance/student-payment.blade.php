@@ -24,12 +24,15 @@
                 @isset($student)
                     @forelse ($student as $key => $item)
                         @php
-                            $amount = DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->id);
+                            $data = DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->id);
+
                         @endphp
-                        <tr @if ($amount == 0) hidden @endif>
+                        <tr @if ($data['total'] == 0) hidden @endif>
                             <td>{{ $item->name ?? '' }}</td>
                             <td>{{ $item->fee ?? '' }} Tk</td>
-                            <td>{{ DateHelper::studentTotalMontOrhAmount($item->created_at, $item->fee, $item->id) }}
+                            <td>
+                                Unpaid {{ $data['month'] }} month, total {{ $data['total'] }} Tk
+                            </td>
                             </td>
                             <td colspan="2">
                                 <form action="{{ route('student.payment', $item->id) }}" method="POST">
@@ -37,7 +40,7 @@
                                     @method('POST')
                                     <div class="input-group w-75">
                                         <input name="paid" type="number" class="form-control" placeholder="Amount"
-                                            value="{{ old('paid') }}">
+                                            value="{{ old('paid') }}" min="1" max="{{ $data['total'] }}" required>
 
                                         <div class="dropdown ms-2">
                                             <button class="btn btn-outline-primary dropdown-toggle" type="button"
@@ -53,6 +56,9 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-outline-primary ms-2" type="submit">Submit</button>
+                                        <a href="{{ route('student.waiver', $item->id) }}" class="btn btn-danger ms-2 "
+                                            type="button"
+                                            data-delate-route="{{ route('student.waiver', ['studentId' => $item->id]) }}">Delete</a>
                                     </div>
                                 </form>
                                 @error('paid')

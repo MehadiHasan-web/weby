@@ -20,6 +20,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherPaymentController;
 use App\Http\Controllers\ViewController;
 use App\Livewire\Students;
+use App\Models\admin\StudentPayment;
 use Illuminate\Support\Facades\Route;
 use Livewire\Mechanisms\HandleComponents\ViewContext;
 use App\Test\TestLogic;
@@ -65,10 +66,12 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // student payment
     Route::get('/student-payment', [StudentPaymentController::class, 'index'])->name('student.payment.index');
     Route::post('/student-payment/{student_id}', [StudentPaymentController::class, 'payment'])->name('student.payment');
+    Route::get('/student-waiver/{studentId}', [StudentPaymentController::class, 'waiver'] )->name('student.waiver');
     // teacher payment
     Route::get('/teacher-payment', [TeacherPaymentController::class, 'index'])->name('teacher.payment');
     Route::post('/teacher-payment/{teacher_id}', [TeacherPaymentController::class, 'payment'])->name('teacher.payment.paid');
     // student
+    Route::get('/student-attendance/{studentId}', [StudentController::class, 'attendance'])->name('student.attendance');
     Route::resource('/student', StudentController::class);
     // report
     Route::get('/student-report/{id}', [PaymentReport::class, 'student'])->name('student.payment.report');

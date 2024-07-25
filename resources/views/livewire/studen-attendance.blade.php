@@ -38,6 +38,7 @@
                         <th scope="col">Roll No</th>
                         <th scope="col">Name</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Report</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,12 @@
                                         @endswitch
 
                                     </div>
+                                </td>
+                                <td>
+                                    <a href="{{ route('student.attendance', $item->student->id) }}"
+                                        class="badge text-bg-dark text-decoration-none text-white">
+                                        Report
+                                    </a>
                                 </td>
                             </tr>
                             @empty

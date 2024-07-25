@@ -18,13 +18,20 @@ class DateHelper
         $month = (int)abs(Carbon::now()->diffInMonths($date));
         $unpaid_amount = ($fee * $month) - $total;
         $unpaid_month = $unpaid_amount / $fee;
+        $data = [
+            'month' => $unpaid_month,
+            'total' => $unpaid_amount
+        ];
 
-        if($unpaid_amount==0){
-            return 0;
-        }else{
-            $result = 'Unpaid '. $unpaid_month .' month, Total '. $unpaid_amount .' Tk';
-            return  $result;
-        }
+        // dd($data['month']);
+        return $data;
+
+        // if($unpaid_amount==0){
+        //     return 0;
+        // }else{
+        //     $result = 'Unpaid '. $unpaid_month .' month, Total '. $unpaid_amount .' Tk';
+        //     return  $result;
+        // }
 
     }
 

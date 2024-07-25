@@ -1,5 +1,5 @@
 <div>
-    <a href="{{ route('student.create') }}" class="my-2 btn btn-outline-dark">New</a>
+    <a href="{{ route('student.create') }}" class="my-2 btn btn-outline-dark">New Student</a>
     <table class="table  table-hover border rounded shadow">
         <thead>
             <tr>
@@ -8,7 +8,6 @@
                 <th scope="col">Phone</th>
                 <th scope="col">Fee</th>
                 <th scope="col">Gender</th>
-                <th scope="col">Profile</th>
             </tr>
         </thead>
         <tbody>
@@ -16,23 +15,34 @@
                 @foreach ($students as $key => $item)
                     <tr>
                         <th scope="row">{{ $key + 1 }}</th>
-                        <td>
-                            <p>{{ $item->name ?? 'Not Available' }}</p>
-                            <p> {{ $item->email ?? 'Not Available' }}</p>
+                        <td class="d-flex justify-items-center">
+                            <a href="{{ route('student.show', $item->id) }}">
+                                <img class="img-fluid img-fluid me-2 rounded shadow"
+                                    src="{{ URL::to('storage/student/' . $item->photo ?? '') }}" alt=""
+                                    style="width:50px; height:50px; ">
+                            </a>
+
+                            <div>
+                                <strong class="font-bold ">
+                                    <a class="" href="{{ route('student.show', $item->id) }}">
+                                        {{ $item->name ?? 'Not Available' }}</a>
+                                </strong>
+                                <p class="text-black"> {{ $item->email ?? 'Not Available' }}</p>
+                            </div>
                         </td>
                         <td>
-                            <p>{{ $item->phone ?? 'Not Available' }}</p>
-                            <p>{{ $item->created_at->diffForHumans() ?? '' }}</p>
+                            <strong>{{ $item->phone ?? 'Not Available' }}</strong>
+                            <p class="text-muted">{{ $item->created_at->diffForHumans() ?? '' }}</p>
                         </td>
                         <td>
                             <p>{{ $item->fee ?? '' }}Tk</p>
                         </td>
                         <td>
-                            <p>{{ $item->gender == 1 ? 'Mail' : 'Femail' }}</p>
+                            <span class="">{{ $item->gender == 1 ? 'Mail' : 'Femail' }}</span>
                         </td>
                         <td>
-                            <a href="{{ route('student.show', $item->id) }}" class="btn btn-info me-2 btn-sm">Profile
-                                <i class="bi bi-person-lines-fill ms-2"></i></a>
+                            <a type="submit" class="btn btn-info btn-sm " href=""><i
+                                    class="bi bi-pencil-square"></i></a>
                             <a href="{{ route('student.payment.report', $item->id) }}"
                                 class="btn btn-success btn-sm">Report</a>
                         </td>

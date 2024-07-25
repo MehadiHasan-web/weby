@@ -10,7 +10,7 @@ class StudentPayment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'student_id', 'institute_id',  'paid','note'
+        'student_id', 'institute_id', 'paid','note', 'waiver'
     ];
     public function student()
     {

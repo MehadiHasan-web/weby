@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentCreateRequest;
+use App\Http\Requests\StudentUpdateRequest;
 use App\Models\admin\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -29,17 +31,8 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StudentCreateRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Student::class],
-            'phone' => 'required',
-            'address' => 'nullable',
-            'gender' => 'nullable',
-            'photo' => 'nullable',
-            'fee' => 'required',
-        ]);
         $data = [
             'institute_id' => session('institute_id'),
             'name' => $request->name,
@@ -79,15 +72,47 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('admin.partials.student.edit', compact('student'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(StudentUpdateRequest $request, Student $student)
     {
-        //
+
+        $data = [
+            'institute_id' => session('institute_id'),
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'fee' => $request->fee,
+        ];
+
+        $image = $request->file('photo');
+        if ($image) {
+            if($student->photo){
+                $filePath = public_path('storage/student/' . $student->photo);
+                if($filePath){
+                    unlink($filePath);
+                }
+            }
+
+            $reviewDirectory = public_path('storage/student');
+            File::makeDirectory($reviewDirectory, 0755, true, true);
+
+            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . '.webp';
+            Image::make($image)->resize(1280, 1280)->save('storage/student/' . $uniqueName, 90, 'webp');
+
+            $data['photo'] = $uniqueName;
+        }
+
+        $student->update($data);
+        flash()->success('Student updated');
+        return redirect()->back();
     }
 
     /**
@@ -96,5 +121,8 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+    public function attendance(Student $studentId){
+        dd($studentId);
     }
 }

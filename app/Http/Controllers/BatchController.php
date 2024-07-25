@@ -43,7 +43,6 @@ class BatchController extends Controller
         'name' => $request->name,
        ];
 
-
         // more image
         $routine = [];
         if($request->hasFile('routine')){
@@ -78,10 +77,9 @@ class BatchController extends Controller
     {
         $students = Student::where('institute_id', session('institute_id'))->whereNotNull('institute_id')->latest()->get();
         $teachers = Teacher::where('institute_id', session('institute_id'))->latest()->get();
-        $selectedIdsStudents = json_decode($batch->student, true) ?: [];
-
-        // dd($selectedIdsStudents);
-        return view('admin.partials.batch.show', compact('batch','students','teachers','selectedIdsStudents', ));
+        // $selectedIdsStudents = json_decode($batch->student, true) ?: [];
+        // dd($batch->teacher);
+        return view('admin.partials.batch.show', compact('batch','students','teachers'));
     }
 
     /**
@@ -133,6 +131,7 @@ class BatchController extends Controller
             //     'teachers' => $teachers,
             // ]);
             $batch->student()->attach($request->input('student'));
+            $batch->teacher()->attach($request->input('teacher'));
             flash()->success('Successfully added');
             return redirect()->back();
         }

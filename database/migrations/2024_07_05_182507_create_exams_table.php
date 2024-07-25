@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('institute_id')->constrained('institutes')->onDelete('cascade');
             $table->bigInteger('batche_id')->constrained('batches')->onDelete('cascade');
+            $table->string('name');
             $table->string('exam_invigilator')->nullable();
             $table->string('course_teacher')->nullable();
             $table->string('exam_topic')->nullable();

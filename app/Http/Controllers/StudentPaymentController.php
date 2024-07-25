@@ -31,4 +31,7 @@ class StudentPaymentController extends Controller
         flash()->success("Payment success.");
         return redirect()->back();
     }
+    public function  waiver($data) {
+        dd($data);
+    }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('student_id')->constrained('students')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->bigInteger('institute_id')->constrained('institutes')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('paid')->nullable();
+            $table->integer('waiver')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

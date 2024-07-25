@@ -16,8 +16,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exam = Exam::where('institute_id', session('institute_id'))->latest()->get();
-        return view('admin.partials.exam.index',compact('exam'));
+        return view('admin.partials.exam.index');
     }
 
     /**
@@ -40,6 +39,7 @@ class ExamController extends Controller
         $data = [
             'institute_id' => session('institute_id'),
             'batche_id' => $request->batche,
+            'name' => $request->name,
             'exam_invigilator' => $request->exam_invigilator,
             'course_teacher' => $request->course_teacher,
             'exam_topic' => $request->exam_topic,

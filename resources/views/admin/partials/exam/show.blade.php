@@ -12,6 +12,10 @@
                 </div>
 
                 <div class="col mb-3">
+                    <h5>Exam Name</h5>
+                    <p>{{ $exam->name ?? '' }}</p>
+                </div>
+                <div class="col mb-3">
                     <h5>Exam Invigilator</h5>
                     <p>{{ $exam->exam_invigilator ?? '' }}</p>
                 </div>
@@ -31,7 +35,7 @@
                 </div>
                 <div class="col mb-3">
                     <h5>Exam time</h5>
-                    <p>{{ $exam->total_time ?? '' }}</p>
+                    <p>{{ $exam->total_time ?? '00' }}:00 </p>
                 </div>
                 <div class="col mb-3">
                     <h5>Exam marks</h5>

@@ -3,7 +3,7 @@
     Exam
 @endsection
 @section('content')
-    <div class="card p-4 shadow ">
+    <div class="card p-4 shadow col-8">
         <form class="row" action="{{ route('exam.store') }}" method="POST" enctype="multipart/form-data">
             @method('POST')
             @csrf
@@ -22,10 +22,10 @@
                 <div class="upload__img-wrap"></div>
             </div>
 
-            <div class="row row-cols-2 mt-4 col-8  rounded">
+            <div class="row row-cols-2 mt-4 col-12  rounded">
                 <div class="mb-3 col">
                     <label for="name" class="form-label">Select Batch</label>
-                    <select class="form-select" aria-label="Default select example" name="batche">
+                    <select class="form-select" aria-label="Default select example" name="batche" required>
                         <option selected disabled>Select Batch</option>
                         @isset($batch)
                             @foreach ($batch as $item)
@@ -42,7 +42,7 @@
                 <div class="mb-3 col">
                     <label for="name" class="form-label">Exam Name</label>
                     <input name="name" value="{{ old('name') }}" type="text" class="form-control" id="name"
-                        placeholder="Write exam name..">
+                        placeholder="Write exam name.." required>
                     @error('name')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -52,7 +52,7 @@
                 <div class="mb-3 col">
                     <label for="name" class="form-label">Exam Invigilator</label>
                     <input name="exam_invigilator" value="{{ old('exam_invigilator') }}" type="text" class="form-control"
-                        id="name" placeholder="Write exam invigilator name..">
+                        id="name" placeholder="Write exam invigilator name.." required>
                     @error('exam_invigilator')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -71,7 +71,7 @@
                 <div class="mb-3 col">
                     <label for="exam_topic" class="form-label">Exam Topic</label>
                     <input name="exam_topic" value="{{ old('exam_topic') }}" type="text" class="form-control"
-                        id="exam_topic" placeholder="Write institute exam_topic..">
+                        id="exam_topic" placeholder="Write institute exam_topic.." required>
                     @error('exam_topic')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -79,8 +79,8 @@
 
                 <div class="mb-3 col">
                     <label for="exam_date" class="form-label">Exam Date</label>
-                    <input name="exam_date" value="{{ old('exam_date') }}" type="text" class="form-control"
-                        id="exam_date" placeholder="Write institute exam date..">
+                    <input name="exam_date" value="{{ old('exam_date') }}" type="date" class="form-control"
+                        id="exam_date" placeholder="Write institute exam date.." required>
                     @error('exam_date')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -88,8 +88,8 @@
 
                 <div class="mb-3 col">
                     <label for="total_time" class="form-label">Total Time</label>
-                    <input name="total_time" value="{{ old('total_time') }}" type="text" class="form-control"
-                        id="total_time" placeholder="Write institute total time..">
+                    <input name="total_time" value="{{ old('total_time') }}" type="number" class="form-control"
+                        id="total_time" placeholder="Write institute total time.." required>
                     @error('total_time')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -97,31 +97,13 @@
 
                 <div class="mb-3 col">
                     <label for="exam_marks" class="form-label">Total Marks</label>
-                    <input name="exam_marks" value="{{ old('exam_marks') }}" type="text" class="form-control"
-                        id="exam_marks" placeholder="Write institute total marks..">
+                    <input name="exam_marks" value="{{ old('exam_marks') }}" type="number" class="form-control"
+                        id="exam_marks" placeholder="Write institute total marks.." required>
                     @error('exam_marks')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
-            <div class="col-4 border mt-2">
-                <h4 class="text-center">Students</h4>
-                <div class="d-flex flex-wrap gap-2 mt-2">
-                    @isset($student)
-                        @foreach ($student as $item)
-                            <div class="form-check border py-1 coursor-pointer" style="cursor: pointer;">
-                                <input name="student[]" class="form-check-input" type="checkbox"
-                                    value="{{ $item->id }}" id="flexCheckDefault{{ $item->id ?? '' }}">
-                                <label class="form-check-label" for="flexCheckDefault{{ $item->id ?? '' }}">
-                                    {{ $item->name ?? '' }}
-                                </label>
-                            </div>
-                        @endforeach
-                    @endisset
-
-                </div>
-            </div>
-
 
             <div class="flex">
                 <a href="{{ route('exam.index') }}" type="button" class="btn btn-dark me-2">Cancel<i

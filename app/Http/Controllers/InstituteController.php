@@ -60,7 +60,6 @@ class InstituteController extends Controller
 
         Institute::create($data);
         $user = User::create($data);
-        $user->assignRole('moderator');
         // Auth::login($user);
         flash()->success('Institute Register');
         return redirect()->route('institute.index');
@@ -101,10 +100,11 @@ class InstituteController extends Controller
     public function approved($id)
     {
         $institute = Institute::find($id);
-
+        $user = User::where('email', $institute->email)->first();
         if ($institute) {
             $institute->status = 0;
             $institute->save();
+            $user->assignRole('moderator');
             flash()->success('Institute approved successfully.');
             return redirect()->back();
         } else {
@@ -114,10 +114,11 @@ class InstituteController extends Controller
     public function pending($id)
     {
         $institute = Institute::find($id);
-
+        $user = User::where('email', $institute->email)->first();
         if ($institute) {
             $institute->status = 1;
             $institute->save();
+            $user->removeRole('moderator');
             flash()->success('Institute approval cancelled successfully.');
             return redirect()->back();
         } else {

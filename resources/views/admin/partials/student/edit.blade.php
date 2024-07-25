@@ -5,8 +5,8 @@
 @section('content')
     <div class="d-flex justify-content-center">
         <div class="card p-4 shadow col-8">
-            <form action="{{ route('student.store') }}" method="POST" enctype="multipart/form-data">
-                @method('POST')
+            <form action="{{ route('student.update', $student->id) }}" method="POST" enctype="multipart/form-data">
+                @method('put')
                 @csrf
                 {{-- teacher image  --}}
                 <div class="file-upload border rounded col-4">
@@ -28,14 +28,16 @@
                     @error('photo')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
+
                 </div>
+
 
 
                 <div class="row row-cols-2 mt-2">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input name="name" value="{{ old('name') }}" type="name" class="form-control" id="name"
-                            placeholder="Write teacher name..">
+                        <input name="name" value="{{ old('name', $student->name ?? '') }}" type="name"
+                            class="form-control" id="name" placeholder="Write teacher name..">
                         @error('name')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -43,8 +45,8 @@
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input name="email" value="{{ old('email') }}" type="text" class="form-control" id="email"
-                            placeholder="Write teacher email..">
+                        <input name="email" value="{{ old('email', $student->email ?? '') }}" type="text"
+                            class="form-control" id="email" placeholder="Write teacher email..">
                         @error('email')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -54,16 +56,16 @@
                 <div class="row row-cols-2 mt-2">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
-                        <input name="phone" value="{{ old('phone') }}" type="text" class="form-control" id="phone"
-                            placeholder="Write phone..">
+                        <input name="phone" value="{{ old('phone', $student->phone ?? '') }}" type="text"
+                            class="form-control" id="phone" placeholder="Write phone..">
                         @error('phone')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="fee" class="form-label">Fee</label>
-                        <input name="fee" value="{{ old('fee') }}" type="number" class="form-control" id="fee"
-                            placeholder="Write fee..">
+                        <input name="fee" value="{{ old('fee', $student->fee ?? '') }}" type="number"
+                            class="form-control" id="fee" placeholder="Write fee..">
                         @error('fee')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -72,7 +74,7 @@
 
 
                 <div class="form-floating mb-3">
-                    <textarea name="address" class="form-control" placeholder="Leave a comment here" id="Address" style="height: 100px">{{ old('address') }}</textarea>
+                    <textarea name="address" class="form-control" placeholder="Leave a comment here" id="Address" style="height: 100px">{{ old('address', $student->address ?? '') }}</textarea>
                     <label for="Address">Address</label>
                 </div>
                 <div class="mb-3">
@@ -80,11 +82,12 @@
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1"
-                                checked>
+                                {{ $student->gender == 1 ? 'checked' : '' }}>
                             <label class="form-check-label" for="inlineRadio1">Mail</label>
                         </div>
                         <div class="form-check form-check-inline ">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2">
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2"
+                                {{ $student->gender == 2 ? 'checked' : '' }}>
                             <label class="form-check-label" for="inlineRadio2">Femail</label>
                         </div>
                     </div>

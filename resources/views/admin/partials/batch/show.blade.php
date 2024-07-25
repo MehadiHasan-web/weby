@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
-    <div class="col-12  d-flex border p-4 rounded shadow">
+    <div class="col-12  d-flex border p-4 rounded ">
         <div class="col-6">
             <h6>Batch Id : {{ $batch->id ?? '' }}</h6>
             <h4 class="card-title"> Batch name: <span class="text-info">{{ $batch->name ?? '' }}</span></h4>
@@ -23,23 +23,54 @@
             </div>
 
             <div class="mt-2">
-                {{-- students  --}}
-                <h4 class="mt-4">Students</h4>
-                <div class="d-flex ps-3">
-                    @isset($students)
-                        @foreach ($students as $item)
-                            @if (in_array($item->id, $selectedIdsStudents))
-                                <div class="rounded-circle border border-primary d-flex justify-content-center align-items-center shadow bg-white"
-                                    style="width: 48px; height:48px; margin-left:-15px;">
-                                    <strong class="m-0">{{ Str::limit($item->name, 2) }}</strong>
-                                </div>
-                            @endif
-                        @endforeach
-                        <button class="btn btn-dark shadow ms-2 " data-bs-toggle="modal" data-bs-target="#allStudents">
-                            Show All
-                        </button>
-                    @endisset
+                <div>
+                    <h2>Teachers @isset($batch->teacher)
+                            <span class="badge badge-pill text-bg-info fs-5"> {{ $batch->teacher->count() }}</span>
+                        @endisset
+                    </h2>
+                    <div class="d-flex gap-2">
+                        @isset($batch->teacher)
+                            @forelse ($batch->teacher as $item)
+                                <a href="{{ route('teacher.show', $item->id) }}"
+                                    class="badge badge-pill text-bg-primary fs-5">{{ $item->name ?? '' }}</a>
 
+                            @empty
+                                <p>No teacher added.</p>
+                            @endforelse
+                        @endisset
+                    </div>
+                </div>
+
+                {{-- students  --}}
+                <h4 class="mt-4">Students @isset($batch->student)
+                        <span class="badge badge-pill text-bg-success fs-5"> {{ $batch->student->count() }}</span>
+                    @endisset
+                </h4>
+                <div class="me-lg-3 border p-1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @isset($batch->student)
+                                @foreach ($batch->student as $key => $item)
+                                    <tr>
+                                        <th scope="row">{{ $key + 1 }}</th>
+                                        <td class="font-bold"><a class="text-bold"
+                                                href="{{ route('student.show', $item->id) }}">{{ $item->name ?? '' }}</a></td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    {{-- @endif --}}
+                                @endforeach
+                            @endisset
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -57,7 +88,7 @@
                     @endisset
                 </select>
                 <h2>Add Teacher</h2>
-                <select class="js-example-basic-multiple w-100" name="teachers[]" multiple="multiple">
+                <select class="js-example-basic-multiple w-100" name="teacher[]" multiple="multiple">
                     @isset($teachers)
                         @foreach ($teachers as $item)
                             <option value="{{ $item->id }}">{{ $item->name ?? '' }} || {{ $item->id ?? '' }}</option>
@@ -96,50 +127,6 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        {{-- student modal  --}}
-        <div class="modal fade" id="allStudents" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Student List</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">SL</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($batch->student)
-                                    @foreach ($batch->student as $key => $item)
-                                        {{-- @if (in_array($item->id, $selectedIdsStudents)) --}}
-                                        <tr>
-                                            <th scope="row">{{ $key + 1 }}</th>
-                                            <td>{{ $item->name ?? '' }}</td>
-                                            <td>Remove</td>
-                                        </tr>
-                                        {{-- @endif --}}
-                                    @endforeach
-                                @endisset
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
     </div>
 
 @endsection

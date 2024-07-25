@@ -12,6 +12,7 @@ class Exam extends Model
     protected $fillable = [
         'institute_id',
         'batche_id',
+        'name',
         'exam_invigilator',
         'course_teacher',
         'exam_topic',
