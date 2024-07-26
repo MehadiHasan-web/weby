@@ -10,13 +10,13 @@ class DateHelper
 {
     public static function studentTotalMontOrhAmount($date, $fee, $studentId )
     {
-        $total = 0;
-        $payment = StudentPayment::where('institute_id', session('institute_id'))->where('student_id', $studentId)->get();
-        foreach($payment as $item){
-            $total += (float)$item->paid;
-        }
+        $total = StudentPayment::where('institute_id', session('institute_id'))->where('student_id', $studentId)->sum('paid');
+        $waiver = StudentPayment::where('institute_id', session('institute_id'))->where('student_id', $studentId)->sum('waiver');
+        $sub_total = $total + $waiver;
+
+
         $month = (int)abs(Carbon::now()->diffInMonths($date));
-        $unpaid_amount = ($fee * $month) - $total;
+        $unpaid_amount = ($fee * $month) - $sub_total;
         $unpaid_month = $unpaid_amount / $fee;
         $data = [
             'month' => $unpaid_month,
@@ -25,14 +25,6 @@ class DateHelper
 
         // dd($data['month']);
         return $data;
-
-        // if($unpaid_amount==0){
-        //     return 0;
-        // }else{
-        //     $result = 'Unpaid '. $unpaid_month .' month, Total '. $unpaid_amount .' Tk';
-        //     return  $result;
-        // }
-
     }
 
     public static function teacherTotalHourOrAmount($total_hour, $hourly_rate, $teacherId){

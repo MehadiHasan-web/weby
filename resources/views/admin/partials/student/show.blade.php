@@ -62,6 +62,9 @@
                                     </div>
 
                                     <a href="{{ route('student.index') }}" class="mt-3 btn btn-dark  shadow ">Back</a>
+                                    <a href="{{ route('student.attendance', $student->id) }}"
+                                        class="mt-3 btn btn-dark  shadow ">Attendance
+                                        report</a>
 
                                 </div>
                             </div>

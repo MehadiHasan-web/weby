@@ -23,7 +23,7 @@ class Student extends Model
     public function batche(){
         return $this->BelongsToMany(Batch::class, 'batche_student');
     }
-    // public function attendance(){
-    //     return $this->BelongsToMany(Attendance::class );
-    // }
+    public function attendance(){
+        return $this->hasMany(Attendance::class );
+    }
 }

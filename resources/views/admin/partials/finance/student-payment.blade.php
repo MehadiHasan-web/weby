@@ -56,16 +56,13 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-outline-primary ms-2" type="submit">Submit</button>
-                                        <a href="{{ route('student.waiver', $item->id) }}" class="btn btn-danger ms-2 "
-                                            type="button"
-                                            data-delate-route="{{ route('student.waiver', ['studentId' => $item->id]) }}">Delete</a>
+                                        <a href="{{ route('student.waiver', ['id' => $item->id, 'total' => $data['total']]) }}"
+                                            class="btn btn-danger ms-2 " type="button">Waiver</a>
                                     </div>
                                 </form>
                                 @error('paid')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
-
-
                             </td>
                         </tr>
                     @empty

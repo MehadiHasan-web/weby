@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentCreateRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use App\Models\admin\Attendance;
 use App\Models\admin\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
-
 class StudentController extends Controller
 {
     /**
@@ -122,7 +122,8 @@ class StudentController extends Controller
     {
         //
     }
-    public function attendance(Student $studentId){
-        dd($studentId);
+    public function attendance(Student $student){
+
+       return view('admin.partials.attend-report.student-attendance-report', compact('student'));
     }
 }

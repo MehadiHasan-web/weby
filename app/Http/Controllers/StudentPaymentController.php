@@ -31,7 +31,12 @@ class StudentPaymentController extends Controller
         flash()->success("Payment success.");
         return redirect()->back();
     }
-    public function  waiver($data) {
-        dd($data);
+    public function  waiver(Request $request) {
+        AdminStudentPayment::create([
+            'institute_id' => session('institute_id'),
+            'student_id' => $request->id,
+            'waiver' => $request->total,
+        ]);
+        return redirect()->back();
     }
 }

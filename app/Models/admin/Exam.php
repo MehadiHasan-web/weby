@@ -19,6 +19,7 @@ class Exam extends Model
         'exam_date',
         'total_time',
         'exam_marks',
+        'exam_paper'
         // 'user_id'
     ];
 
