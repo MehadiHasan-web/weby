@@ -50,9 +50,6 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // student attendance
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
     Route::get('/attendance/index/{batch}', [AttendanceController::class, 'create'])->name('attendance.index');
-    Route::get('/attendance/present/{studentId}/{batchId}', [AttendanceController::class, 'present'])->name('attendance.present');
-    Route::get('/attendance/late_present/{studentId}/{batchId}', [AttendanceController::class, 'late_present'])->name('attendance.late_present');
-    Route::get('/attendance/absent/{studentId}/{batchId}', [AttendanceController::class, 'absent'])->name('attendance.absent');
     // attendance report
     Route::get('/attendance-report', [AttendanceReportController::class, 'index'])->name('attendance.report');
     // teacher attendance

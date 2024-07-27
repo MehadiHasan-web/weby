@@ -17,26 +17,7 @@
 
                     <div class="card-body">
                         {{-- items --}}
-                        @isset($batch->student)
-                            @foreach ($batch->student as $item)
-                                <div class="border rounded p-1  card position-relative mb-3" data-aos="fade-up">
-                                    <h2 class="card-header">{{ $item->name ?? '' }}
-                                    </h2>
-                                    <div class="position-absolute top-0 end-0 pe-2 pt-2">
-                                        <span class="badge text-bg-dark">{{ $item->created_at->diffForHumans() ?? '' }}</span>
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="{{ route('attendance.present', ['studentId' => $item->id, 'batchId' => $batch->id]) }}"
-                                            type="button" class="btn btn-success">Present</a>
-                                        <a href="{{ route('attendance.late_present', ['studentId' => $item->id, 'batchId' => $batch->id]) }}"
-                                            type="button" class="btn btn-warning">Let Present</a>
-                                        <a href="{{ route('attendance.absent', ['studentId' => $item->id, 'batchId' => $batch->id]) }}"
-                                            type="button" class="btn btn-danger">Absent</a>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endisset
-
+                        @livewire('student-attendance', ['batch' => $batch])
                     </div>
 
                 </div>
