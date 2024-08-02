@@ -45,7 +45,6 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/exam', ExamController::class);
     Route::get('/absent/{user}/{exam}', [ExamResultController::class, 'absent'])->name('result.absent');
-    // Route::resource('/result', ExamResultController::class)->only('store','edit');
     Route::resource('/result', ExamResultController::class)->only('store', 'edit');
 
     // student attendance
