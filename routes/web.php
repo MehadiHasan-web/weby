@@ -33,19 +33,20 @@ Route::get('/', function () {
 //     return view('Admin.Master.master');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 // Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard'],
-Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard'],function(){
+Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard'], function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/institute-approval/{id}', [InstituteController::class, 'approved'])->name('institute.approval');
     Route::get('/institute-pending/{id}', [InstituteController::class, 'pending'])->name('institute.pending');
     Route::resource('/institute', InstituteController::class);
-    Route::post('/add-students/{batch}',[BatchController::class, 'add_students'] )->name('batch.add.student');
+    Route::post('/add-students/{batch}', [BatchController::class, 'add_students'])->name('batch.add.student');
     Route::resource('/batch', BatchController::class);
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/exam', ExamController::class);
     Route::get('/absent/{user}/{exam}', [ExamResultController::class, 'absent'])->name('result.absent');
-    Route::resource('/result', ExamResultController::class)->only('store','edit');
+    // Route::resource('/result', ExamResultController::class)->only('store','edit');
+    Route::resource('/result', ExamResultController::class)->only('store', 'edit');
 
     // student attendance
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
@@ -63,7 +64,7 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // student payment
     Route::get('/student-payment', [StudentPaymentController::class, 'index'])->name('student.payment.index');
     Route::post('/student-payment/{student_id}', [StudentPaymentController::class, 'payment'])->name('student.payment');
-    Route::get('/student-waiver', [StudentPaymentController::class, 'waiver'] )->name('student.waiver');
+    Route::get('/student-waiver', [StudentPaymentController::class, 'waiver'])->name('student.waiver');
     // teacher payment
     Route::get('/teacher-payment', [TeacherPaymentController::class, 'index'])->name('teacher.payment');
     Route::post('/teacher-payment/{teacher_id}', [TeacherPaymentController::class, 'payment'])->name('teacher.payment.paid');
@@ -77,8 +78,6 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::post('/cash-income', [CashboxController::class, 'create'])->name('cash.income');
     Route::post('/cash-expense', [CashboxController::class, 'expense'])->name('cash.expense');
     Route::get('/financial/{month}', [DashboardController::class, 'month_report'])->name('financial.month.report');
-
-
 });
 
 
@@ -89,4 +88,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
