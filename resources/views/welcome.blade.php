@@ -101,7 +101,7 @@
         <h3 class="wby">WEBY </h3>
         <h3 class="title">EDUCATIONAL </h3>
         <h3 class="title">MANAGEMENT SYSTEM</h3>
-        <button class="btn btn1" type="submit" id="login">LOGIN</button>
+        <a href="{{ route('login') }}" class="btn btn1" type="submit">LOGIN</a>
         <button class="btn btn2" type="submit" id="signup">SIGNUP</button>
 
 
