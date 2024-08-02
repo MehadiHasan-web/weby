@@ -4,3 +4,28 @@ deployment:
     - export DEPLOYPATH=/home/webyacad/public_html/
     - shopt -s dotglob
     - /bin/cp -R * $DEPLOYPATH
+
+# Run composer update
+composer update
+
+# Set permissions (adjust according to your server's requirements)
+chown -R www-data:www-data $DEPLOYPATH
+chmod -R 755 $DEPLOYPATH
+chmod -R 775 $DEPLOYPATH/storage
+chmod -R 775 $DEPLOYPATH/bootstrap/cache
+
+# Copy .env.example to .env if .env does not exist
+if [ ! -f .env ]; then
+    cp .env.example .env
+fi
+
+# Generate application key if not set
+if ! grep -q "APP_KEY=base64" .env; then
+    php artisan key:generate
+fi
+
+# Run migrations
+php artisan migrate --force
+
+# Clear and cache configuration
+php artisan optimize:clear
