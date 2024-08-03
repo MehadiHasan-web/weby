@@ -5,6 +5,16 @@
 @section('content')
     <div class=" row gap-2 mt-2">
         <div class="col-7 border shadow  p-4 rounded mb-4">
+
+            {{-- exam paper  --}}
+            <div class="d-flex gap-2">
+                <a href="{{ route('exam.index') }}" class="mt-3 btn btn-dark  shadow ">Back</a>
+                <a href="{{ route('exam.edit', $exam->id) }}" class="mt-3 btn btn-dark  shadow ">Edit</a>
+                <button type="button" class="mt-3 btn btn-dark  shadow" data-bs-toggle="modal" data-bs-target="#examPaper">
+                   Exem paper
+                </button>
+            </div>
+
             <div class="row row-cols-2">
                 <div class="col mb-3">
                     <h5>Batche</h5>
@@ -100,5 +110,46 @@
                 </div>
             </div>
         </div>
+
+        {{-- exam paper  --}}
+        <div class="modal fade" id="examPaper" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Exam paper</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <div id="carouselExample" class="carousel slide ">
+                        <div class="carousel-inner">
+                            @isset($exam->exam_paper)
+                                @foreach (json_decode($exam->exam_paper) as $image)
+                                    <div class="carousel-item active rounded">
+                                        <img src="{{ URL::to('storage/question/' . $image ?? '') }}" class="d-block img-fluid rounded"
+                                            alt="...">
+                                    </div>
+                                @endforeach
+                            @endisset
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
     </div>
 @endsection
