@@ -93,6 +93,9 @@ class StudentController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'gender' => $request->gender,
+            'institute_name' => $request->institute_name,
+            'student_class' => $request->student_class,
+            'roll' => $request->roll,
         ];
 
         $image = $request->file('photo');

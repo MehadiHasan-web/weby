@@ -96,7 +96,6 @@ class BatchController extends Controller
     {
         $batch->name = $request->name;
 
-
         $data = [
             'name' => $request->name,
         ];
@@ -105,9 +104,17 @@ class BatchController extends Controller
         $routine = [];
         if ($request->hasFile('routine')) {
 
+            $old_image = json_decode($batch->routine);
+            if ($old_image) {
+                foreach ($old_image as $item) {
+                    $filePath = public_path('storage/routine/' . $item);
+                    if ($filePath) {
+                        unlink($filePath);
+                    }
+                }
+            }
 
-
-            foreach ($request->file('routine') as $key => $image) {
+            foreach ($request->file('routine') as  $image) {
                 $reviewDirectory = public_path('storage/routine');
                 File::makeDirectory($reviewDirectory, 0755, true, true);
 
@@ -121,7 +128,7 @@ class BatchController extends Controller
         }
 
 
-        $batch->save();
+        $batch->update($data);
         flash()->success('Batch update successfully');
         return redirect()->route('batch.index');
     }
