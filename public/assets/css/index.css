@@ -132,3 +132,8 @@ visibility: visible;
     margin-left: 6%;
 
 }
+@media print {
+    .expanses{
+        background-color: red;
+    }
+}

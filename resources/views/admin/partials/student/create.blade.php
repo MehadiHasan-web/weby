@@ -70,28 +70,59 @@
                     </div>
                 </div>
 
+                <div class="row row-cols-2 mt-2">
+                    <div class="mb-3">
+                        <label for="institute_name" class="form-label">Institute name</label>
+                        <input name="institute_name" value="{{ old('institute_name') }}" type="text" class="form-control" id="institute_name"
+                            placeholder="Write institute name.." required>
+                        @error('institute_name')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="student_class" class="form-label">Student class</label>
+                        <input name="student_class" value="{{ old('student_class') }}" type="text" class="form-control" id="student_class"
+                            placeholder="Write student class.." required>
+                        @error('student_class')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row row-cols-2 mt-2">
+                    <div class="mb-3">
+                        <label for="roll" class="form-label">Roll</label>
+                        <input name="roll" value="{{ old('roll') }}" type="number" class="form-control" id="roll"
+                            placeholder="Write institute name.." required>
+                        @error('roll')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Gender</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1"
+                                    checked>
+                                <label class="form-check-label" for="inlineRadio1">Mail</label>
+                            </div>
+                            <div class="form-check form-check-inline ">
+                                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2">
+                                <label class="form-check-label" for="inlineRadio2">Femail</label>
+                            </div>
+                        </div>
+                        @error('gender')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
 
                 <div class="form-floating mb-3">
                     <textarea name="address" class="form-control" placeholder="Leave a comment here" id="Address" style="height: 100px">{{ old('address') }}</textarea>
                     <label for="Address">Address</label>
                 </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Gender</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1"
-                                checked>
-                            <label class="form-check-label" for="inlineRadio1">Mail</label>
-                        </div>
-                        <div class="form-check form-check-inline ">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2">
-                            <label class="form-check-label" for="inlineRadio2">Femail</label>
-                        </div>
-                    </div>
-                    @error('gender')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
+
 
 
                 <div class="flex">

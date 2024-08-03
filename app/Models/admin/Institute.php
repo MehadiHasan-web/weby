@@ -16,7 +16,8 @@ class Institute extends Model
         'phone',
         'password',
         'photo',
-        'note'
+        'note',
+        'status'
     ];
 
     public static function boot()

@@ -10,7 +10,8 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $incomeOrExpanse_this_month = Cashbox::where('institute_id', session('institute_id'))->whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)
             ->latest()
@@ -39,12 +40,26 @@ class DashboardController extends Controller
         return view('admin.modules.dashboard', compact('incomeOrExpanse_this_month', 'this_month_income', 'this_month_expanse', 'totalIncome', 'totalExpanse', 'total_student_fee', 'teacher_salary'));
     }
 
-    public function month_report($month){
-        $incomeOrExpanse_month = Cashbox::where('institute_id', session('institute_id'))->whereMonth('created_at', $month)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->latest()
-        ->get();
+    public function month_report($month)
+    {
 
-        return view('admin.partials.payment-report.month-report', compact('incomeOrExpanse_month'));
+        $incomeOrExpanse_month = Cashbox::where('institute_id', session('institute_id'))->whereMonth('created_at', $month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->latest()
+            ->get();
+
+        $this_month_income = Cashbox::where('institute_id', session('institute_id'))->whereMonth('created_at', $month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('status', 0)
+            ->sum('total');
+
+        $this_month_expanse = Cashbox::where('institute_id', session('institute_id'))->whereMonth('created_at', $month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->where('status', 1)
+            ->sum('total');
+
+
+
+        return view('admin.partials.payment-report.month-report', compact('incomeOrExpanse_month', 'this_month_income', 'this_month_expanse'));
     }
 }

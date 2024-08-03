@@ -41,7 +41,7 @@
                             <span class="">{{ $item->gender == 1 ? 'Mail' : 'Femail' }}</span>
                         </td>
                         <td>
-                            <a type="submit" class="btn btn-info btn-sm " href=""><i
+                            <a  class="btn btn-info btn-sm " href="{{ route('student.edit', $item->id) }}"><i
                                     class="bi bi-pencil-square"></i></a>
                             <a href="{{ route('student.payment.report', $item->id) }}"
                                 class="btn btn-success btn-sm">Report</a>

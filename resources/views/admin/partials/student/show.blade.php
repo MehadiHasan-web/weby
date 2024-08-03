@@ -38,17 +38,38 @@
 
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Institute</p>
-                                            <h6 class="text-muted f-w-400">{{ $student->institute_id ?? 'Not Available' }}
+                                            <p class="m-b-10 f-w-600">Institute Name</p>
+                                            <h6 class="text-muted f-w-400">{{ $student->institute_name ?? 'Not Available' }}
                                             </h6>
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Batch</p>
-                                            <h6 class="text-muted f-w-400">{{ $student->batch_id ?? 'Not Available' }}</h6>
+                                            <div class="d-flex">
+                                                @isset($student->batche)
+                                                    @forelse ($student->batche as $item)
+                                                        <span class="text-muted f-w-400">{{ $item->name ?? '' }}</span>
+                                                    @empty
+                                                        <span class="text-muted">Not Available</span>
+                                                    @endforelse
+                                                @endisset
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="row mt-4">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">Class</p>
+                                            <h6 class="text-muted f-w-400">{{ $student->student_class ?? 'Not Available' }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600">Roll</p>
+                                            <h6 class="text-muted f-w-400">{{ $student->roll ?? 'Not Available' }}
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 ">
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Gender</p>
                                             <h6 class="text-muted f-w-400">{{ $student->gender == 1 ? 'Mail' : 'Femail' }}
@@ -56,12 +77,13 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">Register Date</p>
-                                            <h6 class="text-muted f-w-400">{{ $student->created_at->diffForHumans() ?? '' }}
+                                            <h6 class="text-muted f-w-400">{{ $student->created_at->format('d F Y') ?? '' }}
                                             </h6>
                                         </div>
                                     </div>
 
                                     <a href="{{ route('student.index') }}" class="mt-3 btn btn-dark  shadow ">Back</a>
+                                    <a href="{{ route('student.edit', $student->id) }}" class="mt-3 btn btn-dark  shadow ">Edit</a>
                                     <a href="{{ route('student.attendance', $student->id) }}"
                                         class="mt-3 btn btn-dark  shadow ">Attendance
                                         report</a>

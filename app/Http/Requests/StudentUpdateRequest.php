@@ -28,9 +28,12 @@ class StudentUpdateRequest extends FormRequest
             'email' => 'nullable',
             'phone' => 'required',
             'address' => 'nullable',
-            'gender' => 'nullable',
+            'gender' => 'required',
             'photo' => 'nullable',
             'fee' => 'required',
+            'institute_name' => 'required',
+            'student_class' => 'required',
+            'roll' => 'required',
         ];
     }
 }

@@ -18,12 +18,17 @@ class Student extends Model
         'fee',
         'address',
         'photo',
+        'institute_name',
+        'student_class',
+        'roll',
     ];
 
-    public function batche(){
+    public function batche()
+    {
         return $this->BelongsToMany(Batch::class, 'batche_student');
     }
-    public function attendance(){
-        return $this->hasMany(Attendance::class );
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

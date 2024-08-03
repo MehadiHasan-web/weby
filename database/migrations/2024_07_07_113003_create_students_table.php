@@ -22,6 +22,9 @@ return new class extends Migration
             $table->integer('fee')->nullable();
             $table->text('address')->nullable();
             $table->string('photo')->nullable();
+            $table->string('institute_name')->nullable();
+            $table->string('student_class')->nullable();
+            $table->integer('roll')->nullable();
             $table->timestamps();
         });
     }

@@ -38,36 +38,35 @@ class BatchController extends Controller
      */
     public function store(BatchRequest $request)
     {
-       $data = [
-        'institute_id' => session('institute_id'),
-        'name' => $request->name,
-       ];
+        $data = [
+            'institute_id' => session('institute_id'),
+            'name' => $request->name,
+        ];
 
         // more image
         $routine = [];
-        if($request->hasFile('routine')){
+        if ($request->hasFile('routine')) {
             foreach ($request->file('routine') as $key => $image) {
                 $reviewDirectory = public_path('storage/routine');
                 File::makeDirectory($reviewDirectory, 0755, true, true);
 
                 $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . 'webp';
-                Image::make($image)->resize(1280, 1280)->save('storage/routine/' . $uniqueName, 90, 'webp');
+                $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . 'webp';
+                Image::make($image)->save('storage/routine/' . $uniqueName, 100, 'webp');
 
-                 array_push($routine, $uniqueName);
+                array_push($routine, $uniqueName);
             }
             $data['routine'] = json_encode($routine);
         }
 
-       if(Auth::user()->hasRole('moderator')){
-        Batch::create($data);
-        flash()->success('Batch created ');
-        return redirect()->route('batch.index');
-       }else{
-        flash()->info('Sorry you are not institute');
-        return redirect()->route('batch.index');
-       }
-
+        if (Auth::user()->hasRole('moderator')) {
+            Batch::create($data);
+            flash()->success('Batch created ');
+            return redirect()->route('batch.index');
+        } else {
+            flash()->info('Sorry you are not institute');
+            return redirect()->route('batch.index');
+        }
     }
 
     /**
@@ -79,7 +78,7 @@ class BatchController extends Controller
         $teachers = Teacher::where('institute_id', session('institute_id'))->latest()->get();
         // $selectedIdsStudents = json_decode($batch->student, true) ?: [];
         // dd($batch->teacher);
-        return view('admin.partials.batch.show', compact('batch','students','teachers'));
+        return view('admin.partials.batch.show', compact('batch', 'students', 'teachers'));
     }
 
     /**
@@ -96,6 +95,32 @@ class BatchController extends Controller
     public function update(Request $request, Batch $batch)
     {
         $batch->name = $request->name;
+
+
+        $data = [
+            'name' => $request->name,
+        ];
+
+        // more image
+        $routine = [];
+        if ($request->hasFile('routine')) {
+
+
+
+            foreach ($request->file('routine') as $key => $image) {
+                $reviewDirectory = public_path('storage/routine');
+                File::makeDirectory($reviewDirectory, 0755, true, true);
+
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . 'webp';
+                Image::make($image)->save('storage/routine/' . $uniqueName, 100, 'webp');
+
+                array_push($routine, $uniqueName);
+            }
+            $data['routine'] = json_encode($routine);
+        }
+
+
         $batch->save();
         flash()->success('Batch update successfully');
         return redirect()->route('batch.index');
@@ -108,10 +133,10 @@ class BatchController extends Controller
     {
 
         $old_image = json_decode($batch->routine);
-        if($old_image){
-            foreach($old_image as $item){
+        if ($old_image) {
+            foreach ($old_image as $item) {
                 $filePath = public_path('storage/routine/' . $item);
-                if($filePath){
+                if ($filePath) {
                     unlink($filePath);
                 }
             }
@@ -121,9 +146,10 @@ class BatchController extends Controller
     }
 
     // add students
-    public function add_students(Request $request,Batch $batch){
+    public function add_students(Request $request, Batch $batch)
+    {
         $isn_id = session('institute_id');
-        if($batch->institute_id === $isn_id){
+        if ($batch->institute_id === $isn_id) {
             // $students = json_encode($request->students);
             // $teachers = json_encode($request->teachers);
             // $batch->update([

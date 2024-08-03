@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
+
 class StudentController extends Controller
 {
     /**
@@ -41,6 +42,9 @@ class StudentController extends Controller
             'address' => $request->address,
             'gender' => $request->gender,
             'fee' => $request->fee,
+            'institute_name' => $request->institute_name,
+            'student_class' => $request->student_class,
+            'roll' => $request->roll,
         ];
         $image = $request->file('photo');
         if ($image) {
@@ -48,7 +52,7 @@ class StudentController extends Controller
             File::makeDirectory($reviewDirectory, 0755, true, true);
 
             $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . '.webp';
+            $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . '.webp';
             Image::make($image)->resize(1280, 1280)->save('storage/student/' . $uniqueName, 90, 'webp');
 
             $data['photo'] = $uniqueName;
@@ -64,6 +68,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+
         return view('admin.partials.student.show', compact('student'));
     }
 
@@ -88,14 +93,13 @@ class StudentController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'gender' => $request->gender,
-            'fee' => $request->fee,
         ];
 
         $image = $request->file('photo');
         if ($image) {
-            if($student->photo){
+            if ($student->photo) {
                 $filePath = public_path('storage/student/' . $student->photo);
-                if($filePath){
+                if ($filePath) {
                     unlink($filePath);
                 }
             }
@@ -104,7 +108,7 @@ class StudentController extends Controller
             File::makeDirectory($reviewDirectory, 0755, true, true);
 
             $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . '.webp';
+            $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . '.webp';
             Image::make($image)->resize(1280, 1280)->save('storage/student/' . $uniqueName, 90, 'webp');
 
             $data['photo'] = $uniqueName;
@@ -122,8 +126,9 @@ class StudentController extends Controller
     {
         //
     }
-    public function attendance(Student $student){
+    public function attendance(Student $student)
+    {
 
-       return view('admin.partials.attend-report.student-attendance-report', compact('student'));
+        return view('admin.partials.attend-report.student-attendance-report', compact('student'));
     }
 }
