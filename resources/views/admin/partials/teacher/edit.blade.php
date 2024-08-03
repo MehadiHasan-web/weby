@@ -69,8 +69,8 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="education_ins" class="form-label">Teacher education ins</label>
-                    <input name="education_ins" value="{{ old('education ins', $teacher->education ?? '') }}"
+                    <label for="education_ins" class="form-label">Teacher education institute</label>
+                    <input name="education_ins" value="{{ old('education ins', $teacher->education_ins ?? '') }}"
                         type="text" class="form-control" id="education_ins" placeholder="Write teacher education_ins..">
                     @error('education_ins')
                         <p class="text-danger">{{ $message }}</p>
