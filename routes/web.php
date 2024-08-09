@@ -21,10 +21,12 @@ use App\Http\Controllers\TeacherPaymentController;
 use App\Http\Controllers\ViewController;
 use App\Livewire\BatchShowStudents;
 use App\Livewire\Students;
+use App\Livewire\StudentTeacherRemove;
 use App\Models\admin\StudentPayment;
 use Illuminate\Support\Facades\Route;
 use Livewire\Mechanisms\HandleComponents\ViewContext;
 use App\Test\TestLogic;
+use Livewire\Livewire;
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,9 +81,10 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::post('/cash-expense', [CashboxController::class, 'expense'])->name('cash.expense');
     Route::get('/financial/{month}', [DashboardController::class, 'month_report'])->name('financial.month.report');
 
-
-    // livewire
-    Route::get('/remove-student', [BatchShowStudents::class, 'remove_student'])->name('remove.student');
+    // Livewire
+    // batch student remove
+    Route::get('/batch-student-remove', [StudentTeacherRemove::class, 'student_remove'])->name('batch.student.remove');
+    Route::get('/batch-teacher-remove', [StudentTeacherRemove::class, 'teacher_remove'])->name('batch.teacher.remove');
 });
 
 

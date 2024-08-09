@@ -23,43 +23,8 @@
             </div>
 
             <div class="mt-2">
-                <div>
-                    <h2>Teachers @isset($batch->teacher)
-                            <span class="badge badge-pill text-bg-info fs-5"> {{ $batch->teacher->count() }}</span>
-                        @endisset
-                    </h2>
-                    <div class="d-flex gap-2">
-                        @isset($batch->teacher)
-                            @forelse ($batch->teacher as $item)
-                                <a href="{{ route('teacher.show', $item->id) }}"
-                                    class="badge badge-pill text-bg-primary fs-5">{{ $item->name ?? '' }}</a>
+                @livewire('student-teacher-remove', ['batch' => $batch])
 
-                            @empty
-                                <p>No teacher added.</p>
-                            @endforelse
-                        @endisset
-                    </div>
-                </div>
-
-                {{-- students  --}}
-                <h4 class="mt-4">Students @isset($batch->student)
-                        <span class="badge badge-pill text-bg-success fs-5"> {{ $batch->student->count() }}</span>
-                    @endisset
-                </h4>
-                <div class="me-lg-3 border p-1">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">SL</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @livewire('batch-show-students', ['batch' => $batch])
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
 
