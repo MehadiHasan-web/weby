@@ -19,6 +19,7 @@ use App\Http\Controllers\TeacherAttendReportController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherPaymentController;
 use App\Http\Controllers\ViewController;
+use App\Livewire\BatchShowStudents;
 use App\Livewire\Students;
 use App\Models\admin\StudentPayment;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +78,10 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     Route::post('/cash-income', [CashboxController::class, 'create'])->name('cash.income');
     Route::post('/cash-expense', [CashboxController::class, 'expense'])->name('cash.expense');
     Route::get('/financial/{month}', [DashboardController::class, 'month_report'])->name('financial.month.report');
+
+
+    // livewire
+    Route::get('/remove-student', [BatchShowStudents::class, 'remove_student'])->name('remove.student');
 });
 
 

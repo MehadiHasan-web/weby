@@ -29,7 +29,7 @@ class ExamController extends Controller
     {
         $batch = Batch::where('institute_id', session('institute_id'))->latest()->get();
 
-        return view('admin.partials.exam.create', compact('batch' ));
+        return view('admin.partials.exam.create', compact('batch'));
     }
 
     /**
@@ -50,16 +50,16 @@ class ExamController extends Controller
             'exam_marks' => $request->exam_marks,
         ];
         $question_paper = [];
-        if($request->hasFile('question_paper')){
+        if ($request->hasFile('question_paper')) {
             foreach ($request->file('question_paper') as $key => $image) {
                 $reviewDirectory = public_path('storage/question');
                 File::makeDirectory($reviewDirectory, 0755, true, true);
 
                 $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . 'webp';
-                Image::make($image)->resize(1280, 1280)->save('storage/question/' . $uniqueName, 90, 'webp');
+                $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . 'webp';
+                Image::make($image)->save('storage/question/' . $uniqueName, 100, 'webp');
 
-                 array_push($question_paper, $uniqueName);
+                array_push($question_paper, $uniqueName);
             }
 
             $data['exam_paper'] = json_encode($question_paper);
@@ -108,22 +108,22 @@ class ExamController extends Controller
             'exam_marks' => $request->exam_marks,
         ];
         $question_paper = [];
-        if($request->hasFile('question_paper')){
+        if ($request->hasFile('question_paper')) {
             foreach ($request->file('question_paper') as $key => $image) {
                 $reviewDirectory = public_path('storage/question');
                 File::makeDirectory($reviewDirectory, 0755, true, true);
 
                 $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . 'webp';
-                Image::make($image)->resize(1280, 1280)->save('storage/question/' . $uniqueName, 90, 'webp');
+                $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . 'webp';
+                Image::make($image)->save('storage/question/' . $uniqueName, 100, 'webp');
 
                 array_push($question_paper, $uniqueName);
             }
         }
         $existing_exam_papers = json_decode($exam->exam_paper, true) ?? [];
         if (!empty($existing_exam_papers)) {
-            $question_paper =array_merge($existing_exam_papers, $question_paper);
-        } 
+            $question_paper = array_merge($existing_exam_papers, $question_paper);
+        }
         $data['exam_paper'] = json_encode($question_paper);
         $exam->update($data);
         flash()->success('Exam updated');

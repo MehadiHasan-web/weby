@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="card p-4 shadow">
-        <form action="{{ route('institute.store') }}" method="POST">
+        <form action="{{ route('institute.store') }}" method="POST" enctype="multipart/form-data">
             @method('POST')
             @csrf
             {{-- thumb image  --}}
@@ -59,6 +59,14 @@
                 <input type="password" name="password" class="form-control" id="password"
                     placeholder="Write institute password..">
                 @error('password')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password Confirmed</label>
+                <input type="password" name="password_confirmed" class="form-control" id="password"
+                    placeholder="Write institute password..">
+                @error('password_confirmed')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>

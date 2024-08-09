@@ -4,6 +4,9 @@
 @endsection
 @section('content')
 
+
+
+
     <div class="d-flex mb-2 gap-2">
         <a href="{{ route('dashboard') }}" class="btn btn-outline-dark"><i class="bi bi-arrow-return-left"></i></a>
         <button id="print" class="btn btn-outline-dark "><i class="bi bi-printer-fill"></i></button>
@@ -29,7 +32,7 @@
                             <td>{{ $item->total ?? '' }} Tk</td>
                             <td>
                                 @if ($item->status == 1)
-                                    <span class="badge text-bg-danger">Expanse</span>
+                                    <span i class="badge text-bg-danger expanses" style="background-color: red">Expanse</span>
                                 @else
                                     <span class="badge text-bg-success">Income</span>
                                 @endif
@@ -44,6 +47,16 @@
                             </td>
                         </tr>
                     @endforelse
+                    <th>
+                        <td></td>
+                        <td colspan="2" class="text-center">
+                            <strong class="me-4">Income: {{ $this_month_income ?? '' }} Tk</strong>
+                            <strong>Expanse: {{ $this_month_expanse ?? '' }} Tk</strong>
+                        </td>
+                        <td>
+
+                        </td>
+                    </th>
                 @endisset
             </tbody>
 
@@ -79,7 +92,7 @@
     {{-- print  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.min.js"></script>
     <script>
-        $("#print").click(function() {
+    $("#print").click(function() {
             $(this).hide();
             $("#back").hide();
 

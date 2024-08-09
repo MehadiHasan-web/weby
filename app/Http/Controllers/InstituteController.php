@@ -38,22 +38,22 @@ class InstituteController extends Controller
      */
     public function store(InstituteRequest $request)
     {
-        // dd($request->all());
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'note' => $request->note,
+            // 'note' => $request->note,
         ];
+
         // $image = $request->file('photo');
         // if ($image) {
         //     $reviewDirectory = public_path('storage/institute');
         //     File::makeDirectory($reviewDirectory, 0755, true, true);
 
         //     $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-        //     $uniqueName = $originalName.'_'.Str::random(20) . '_' . uniqid() . '.' . '.webp';
-        //     Image::make($image)->resize(1280, 1280)->save('storage/institute/' . $uniqueName, 90, 'webp');
+        //     $uniqueName = $originalName . '_' . Str::random(20) . '_' . uniqid() . '.' . '.webp';
+        //     Image::make($image)->save('storage/institute/' . $uniqueName, 90, 'webp');
 
         //     $data['photo'] = $uniqueName;
         // }
@@ -62,7 +62,7 @@ class InstituteController extends Controller
         $user = User::create($data);
         // Auth::login($user);
         flash()->success('Institute Register');
-        return redirect()->route('institute.index');
+        return redirect()->route('home');
     }
 
     /**
