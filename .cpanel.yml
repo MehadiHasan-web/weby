@@ -6,7 +6,7 @@ deployment:
     - /bin/cp -R * $DEPLOYPATH
 
 # Run composer update
-composer update
+composer install
 
 # Set permissions (adjust according to your server's requirements)
 chown -R www-data:www-data $DEPLOYPATH
