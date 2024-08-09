@@ -19,6 +19,7 @@ use App\Http\Controllers\TeacherAttendReportController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherPaymentController;
 use App\Http\Controllers\ViewController;
+use App\Http\Controllers\WhatsappController;
 use App\Livewire\BatchShowStudents;
 use App\Livewire\Students;
 use App\Livewire\StudentTeacherRemove;
@@ -85,6 +86,8 @@ Route::group(['middleware' => ['role:admin|moderator'], 'prefix' => 'dashboard']
     // batch student remove
     Route::get('/batch-student-remove', [StudentTeacherRemove::class, 'student_remove'])->name('batch.student.remove');
     Route::get('/batch-teacher-remove', [StudentTeacherRemove::class, 'teacher_remove'])->name('batch.teacher.remove');
+    // send whatsapp message
+    Route::post('/send-whatsapp', [WhatsappController::class, 'sendMessage'])->name('send.whatsapp');
 });
 
 
