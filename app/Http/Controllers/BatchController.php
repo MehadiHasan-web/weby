@@ -157,12 +157,7 @@ class BatchController extends Controller
     {
         $isn_id = session('institute_id');
         if ($batch->institute_id === $isn_id) {
-            // $students = json_encode($request->students);
-            // $teachers = json_encode($request->teachers);
-            // $batch->update([
-            //     'students' => $students,
-            //     'teachers' => $teachers,
-            // ]);
+
             $batch->student()->attach($request->input('student'));
             $batch->teacher()->attach($request->input('teacher'));
             flash()->success('Successfully added');

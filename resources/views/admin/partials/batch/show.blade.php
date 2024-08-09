@@ -56,19 +56,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @isset($batch->student)
-                                @foreach ($batch->student as $key => $item)
-                                    <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
-                                        <td class="font-bold"><a class="text-bold"
-                                                href="{{ route('student.show', $item->id) }}">{{ $item->name ?? '' }}</a></td>
-                                        <td>Remove</td>
-                                    </tr>
-                                    {{-- @endif --}}
-                                @endforeach
-                            @endisset
-
-
+                            @livewire('batch-show-students', ['batch' => $batch])
                         </tbody>
                     </table>
                 </div>
